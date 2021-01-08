@@ -68,36 +68,58 @@
 * Global Variables
 ********************************************************************************/
 /* Holds the IP address obtained using Wi-Fi Connection Manager (WCM). */
-cy_wcm_ip_address_t ip_addr;
+static cy_wcm_ip_address_t ip_addr;
 
 /* Secure HTTP server instance. */
-cy_http_server_t https_server;
+static cy_http_server_t https_server;
 
 /* Wi-Fi network interface. */
-cy_network_interface_t nw_interface;
+static cy_network_interface_t nw_interface;
 
 /* Holds the IP address and port number details of the socket for the HTTPS server. */
-cy_socket_sockaddr_t https_ip_address;
+static cy_socket_sockaddr_t https_ip_address;
 
 /* Holds the security configuration such as server certificate,
  * server key, and rootCA.
  */
-cy_https_server_security_info_t security_config;
+static cy_https_server_security_info_t security_config;
 
 /* Holds the response handler for HTTPS GET and POST request from the client. */
-cy_resource_dynamic_data_t https_get_post_resource;
+static cy_resource_dynamic_data_t https_get_post_resource;
 
-/* Holds the response data to a static message. */
-cy_resource_static_data_t https_put_resource;
+/* Holds the user data which adds/updates the URL data resources. */
+static cy_resource_dynamic_data_t https_put_resource;
 
-/* RTOS task and queue handlers. */
-TaskHandle_t  register_resource_task_handle;
-QueueHandle_t register_resource_queue_handle;
+/* Queues the HTTPS PUT request to register new page resource in the server. */
+static QueueHandle_t register_resource_queue_handle;
 
-/* LED status. */
-char *led_status = LED_STATUS_OFF;
+/* Holds the current LED status. */
+static char *led_status = LED_STATUS_OFF;
 
-char resource_name[NEW_RESOURCE_NAME_LENGTH] = {0};
+/* HTTPS new page resource name */
+static char resource_name[NEW_RESOURCE_NAME_LENGTH] = {0};
+
+/* Global variable to track number of resources registered. */
+static uint32_t number_of_resources_registered = 0;
+
+/* Holds all the URL resources along with its data. */
+typedef struct
+{
+    char *resource_name;
+    char *value;
+    uint32_t length;
+} https_url_database_t;
+
+/* Initializes the URL database with first entry reserved for HTTPS root URL.
+ * The default value of MAX_NUMBER_OF_HTTP_SERVER_RESOURCES is 10 as defined
+ * by the HTTPS server middleware. This can be overriden by setting its value
+ * in the application Makefile. Refer to README.md for details.
+ */
+static https_url_database_t url_resources_db[MAX_NUMBER_OF_HTTP_SERVER_RESOURCES] =
+{
+    /* First entry in the URL database is reserved for HTTPS Root URL. */
+    { (char *)"/", NULL, 0 }
+};
 
 /******************************************************************************
 * Function Prototypes
@@ -188,7 +210,6 @@ int32_t dynamic_resource_handler(const char* url_path,
             break;
 
         case CY_HTTP_REQUEST_PUT:
-            register_new_resource = (char *)&resource_name[0];
             if (https_message_body->data_length > sizeof(resource_name))
             {
                 /* Report the error response to the client. */
@@ -205,9 +226,12 @@ int32_t dynamic_resource_handler(const char* url_path,
             }
             else
             {
+                register_new_resource = (char *)&resource_name[0];
                 memcpy(register_new_resource, (char *)https_message_body->data, https_message_body->data_length);
 
-                /* New resource request need to be queued. */
+                /* Received HTTPS PUT request. Put the message into queue
+                 * to register a new resource with the HTTPS server.
+                 */
                 if (pdTRUE != xQueueSend(register_resource_queue_handle, (void *)&register_new_resource, 0))
                 {
                     ERR_INFO(("Failed to send queue message.\n"));
@@ -229,57 +253,159 @@ int32_t dynamic_resource_handler(const char* url_path,
 }
 
 /*******************************************************************************
+ * Function Name: https_put_resource_handler
+ *******************************************************************************
+ * Summary:
+ *  Handles HTTPS GET request for the newly created resource by the client
+ *  through HTTPS PUT request. It returns the value registered with the requested
+ *  resource.
+ *
+ * Parameters:
+ *  url_path - Pointer to the HTTPS URL path.
+ *  url_parameters - Pointer to the HTTPS URL query string.
+ *  stream - Pointer to the HTTPS response stream.
+ *  arg - Pointer to the argument passed during HTTPS resource registration.
+ *  https_message_body - Pointer to the HTTPS data from the client.
+ *
+ * Return:
+ *  int32_t - Returns HTTPS_REQUEST_HANDLE_SUCCESS if the request from the client
+ *  was handled successfully. Otherwise, it returns HTTPS_REQUEST_HANDLE_ERROR.
+ *
+ *******************************************************************************/
+int32_t https_put_resource_handler(const char *url_path,
+                                   const char *url_parameters,
+                                   cy_http_response_stream_t *stream,
+                                   void *arg,
+                                   cy_http_message_body_t *https_message_body)
+{
+    cy_rslt_t result = CY_RSLT_SUCCESS;
+    int32_t status = HTTPS_REQUEST_HANDLE_SUCCESS;
+    uint32_t index = 0;
+
+    if (CY_HTTP_REQUEST_GET == https_message_body->request_type)
+    {
+        APP_INFO(("Received HTTPS GET request.\n"));
+
+        while (index < MAX_NUMBER_OF_HTTP_SERVER_RESOURCES)
+        {
+            if (strcmp(url_resources_db[index].resource_name, (char *)arg) == 0)
+            {
+                result = cy_http_server_response_stream_write_payload(stream,
+                                               url_resources_db[index].value,
+                                             url_resources_db[index].length);
+                break;
+            }
+
+            /* Get next entry. */
+            index++;
+        }
+    }
+
+    if (CY_RSLT_SUCCESS != result)
+    {
+        ERR_INFO(("Failed to send the response message.\n"));
+        status = HTTPS_REQUEST_HANDLE_ERROR;
+    }
+
+    return status;
+}
+
+/*******************************************************************************
  * Function Name: register_https_resource
  *******************************************************************************
  * Summary:
- *  Registers new resources by processing the queue. This function stops the
- *  HTTPS server before registering and then restarts the server.
+ *  Registers/Updates the new resource with the HTTPS server when HTTPS PUT
+ *  request is received from the client.
  *
  * Parameters:
- *  resource_name: Pointer to the resource name to be registered with the HTTPS server.
+ *  register_resource_name: Pointer to the resource name to be registered 
+ *   with the HTTPS server.
  *
  * Return:
  *  None
  *
  *******************************************************************************/
-void register_https_resource(char *resource_name)
+void register_https_resource(char *register_resource_name)
 {
     cy_rslt_t result = CY_RSLT_SUCCESS;
+    char *url_resource_data = NULL;
+    uint32_t index = 0;
 
-    APP_INFO(("New resource to create: %s\n", resource_name));
+    APP_INFO(("New resource to create: %s\n", register_resource_name));
 
-    /* Any resource registration with the HTTPS server must be done
-     * before the server starts. So we need to stop the server here,
-     * register the new resource as requested by the client, and then
-     * start the server.
+    /* Configure dynamic resource handler. */
+    https_put_resource.resource_handler = https_put_resource_handler;
+    https_put_resource.arg = NULL;
+
+    /* Split the URL resource name and data from the HTTPS PUT request. */
+    strtok_r(register_resource_name, "=", &url_resource_data);
+    APP_INFO(("New URL: %s, Response text: %s\n", register_resource_name, url_resource_data));
+
+    /* Register the resource if it does not exist in the URL database or
+     * update the resource data if the requested resource already
+     * exists in the URL database.
      */
-    result = cy_http_server_stop(https_server);
-    PRINT_AND_ASSERT(result, "Failed to stop the HTTPS server.\n");
+    while (index < MAX_NUMBER_OF_HTTP_SERVER_RESOURCES)
+    {
+        if ((NULL != url_resources_db[index].resource_name) &&
+             strcmp(url_resources_db[index].resource_name, register_resource_name) == 0)
+        {
+            APP_INFO(("Updating the existing resource: %s\n\n", register_resource_name));
+            url_resources_db[index].length = strlen(url_resource_data);
+            url_resources_db[index].value = (char *)realloc(url_resources_db[index].value, (url_resources_db[index].length + 1));
+            memset(url_resources_db[index].value, 0, (url_resources_db[index].length + 1));
+            memcpy(url_resources_db[index].value, url_resource_data, url_resources_db[index].length);
+            https_put_resource.arg = url_resources_db[index].resource_name;
+            break;
+        }
+        else if (NULL == url_resources_db[index].resource_name)
+        {
+            APP_INFO(("Registering the new resource: %s\n\n", register_resource_name));
+            url_resources_db[index].value = (char *)calloc(strlen(url_resource_data), sizeof(char));
+            url_resources_db[index].resource_name = (char *)calloc(strlen(register_resource_name), sizeof(char));
 
-    /* Configure the HTTPS server with all the security parameters and
-     * register a default dynamic URL handler.
-     */
-    result = configure_https_server();
-    PRINT_AND_ASSERT(result, "Failed to configure the HTTPS server.\n");
+            if ((NULL == url_resources_db[index].resource_name) ||
+                (NULL == url_resources_db[index].value))
+            {
+                 ERR_INFO(("Failed to allocate memory for URL resources.\n"));
+                 CY_ASSERT(0);
+            }
 
-    /* Configure static resource. This will be sent as a response to the
-     * GET request made on the new resource.
-     */
-    https_put_resource.data = HTTPS_GET_RESPONSE;
-    https_put_resource.length = sizeof(HTTPS_GET_RESPONSE);
+            /* Add the resource name, data, and data length into URL database. */
+            url_resources_db[index].length = strlen(url_resource_data);
+            memcpy(url_resources_db[index].resource_name, register_resource_name,
+                                                 strlen(register_resource_name));
+            memcpy(url_resources_db[index].value, url_resource_data,
+                                                 url_resources_db[index].length);
+            https_put_resource.arg = url_resources_db[index].resource_name;
 
-    /* Register the newly requested HTTP resource name. */
-    result = cy_http_server_register_resource(https_server,
-                                              (uint8_t*)resource_name,
-                                              (uint8_t*)"text/html",
-                                              CY_STATIC_URL_CONTENT,
-                                              &https_put_resource);
+            /* Register the new/updated resource with HTTPS server. */
+            result = cy_http_server_register_resource(https_server,
+                                                      (uint8_t*)url_resources_db[index].resource_name,
+                                                      (uint8_t*)"text/html",
+                                                      CY_DYNAMIC_URL_CONTENT,
+                                                      &https_put_resource);
+            PRINT_AND_ASSERT(result, "Failed to register a new resource.\n");
 
-    PRINT_AND_ASSERT(result, "Failed to register a new resource.\n");
+            /* Update the resource count. */
+            number_of_resources_registered++;
+            break;
+        }
+        else
+        {
+            /* Get next resource. */
+            index++;
+        }
+    }
 
-    /* Start the HTTPS server. */
-    result = cy_http_server_start(https_server);
-    PRINT_AND_ASSERT(result, "Failed to restart the HTTPS server.\n");
+    if (index >= MAX_NUMBER_OF_HTTP_SERVER_RESOURCES)
+    {
+        ERR_INFO(("Requested resource not registered/updated. Reached Maximum "
+                  "allowed number of resource registration: %d\n", MAX_NUMBER_OF_HTTP_SERVER_RESOURCES));
+    }
+
+    /* Clear the request buffer. */
+    memset(resource_name, 0, sizeof(resource_name));
 }
 
 /*******************************************************************************
@@ -343,7 +469,8 @@ static cy_rslt_t configure_https_server(void)
                                               (uint8_t*)"text/html",
                                               CY_DYNAMIC_URL_CONTENT,
                                               &https_get_post_resource);
-    PRINT_AND_ASSERT(result, "Failed to register a resource.\n");
+    /* Update the resource count. */
+    number_of_resources_registered++;
 
     return result;
 }
@@ -408,13 +535,14 @@ void https_server_task(void *arg)
     APP_INFO(("HTTPS server has successfully started. The server is running at "
               "URL https://%s.local:%d\n\n", HTTPS_SERVER_NAME, HTTPS_PORT));
 
-    /* Waits for queue message to register a new HTTPS page resource.*/
+    /* Waits for a HTTPS PUT request from the client to register a new HTTPS page resource.*/
     while(true)
     {
         if (pdTRUE == xQueueReceive(register_resource_queue_handle,
                                     &register_new_resource_name,
                                     portMAX_DELAY))
         {
+            APP_INFO(("New resource name register request: %s\n", register_new_resource_name));
             register_https_resource(register_new_resource_name);
         }
     }
@@ -442,7 +570,7 @@ cy_rslt_t mdns_responder_start(void)
     /* Start lwIP's MDNS responder.
      * MDNS is required to resolve the local domain name of the secure HTTP server.
      */
-    struct netif *net = cy_lwip_get_interface();
+    struct netif *net = cy_lwip_get_interface(CY_LWIP_STA_NW_INTERFACE);
 
     mdns_resp_init();
 

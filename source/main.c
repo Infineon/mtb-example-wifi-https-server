@@ -70,7 +70,7 @@
 /* This enables RTOS aware debugging */
 volatile int uxTopUsedPriority;
 
-/* UDP server task handle. */
+/* HTTPS server task handle. */
 TaskHandle_t https_server_task_handle;
 
 /*******************************************************************************

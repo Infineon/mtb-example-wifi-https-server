@@ -73,6 +73,9 @@
 #if (LWIP_IPV4 && !LWIP_IGMP)
 #error "If you want to use MDNS with IPv4, you have to define LWIP_IGMP=1 in your lwipopts.h"
 #endif
+#if (LWIP_IPV6 && !LWIP_IPV6_MLD)
+#error "If you want to use MDNS with IPv6, you have to define LWIP_IPV6_MLD=1 in your lwipopts.h"
+#endif
 #if (!LWIP_UDP)
 #error "If you want to use MDNS, you have to define LWIP_UDP=1 in your lwipopts.h"
 #endif
@@ -2082,6 +2085,12 @@ mdns_resp_add_netif(struct netif *netif, const char *hostname, u32_t dns_ttl)
     goto cleanup;
   }
 #endif
+#if LWIP_IPV6
+  res = mld6_joingroup_netif(netif, ip_2_ip6(&v6group));
+  if (res != ERR_OK) {
+      goto cleanup;
+  }
+#endif
 
   mdns_resp_restart(netif);
 
@@ -2125,6 +2134,9 @@ mdns_resp_remove_netif(struct netif *netif)
   /* Leave multicast groups */
 #if LWIP_IPV4
   igmp_leavegroup_netif(netif, ip_2_ip4(&v4group));
+#endif
+#if LWIP_IPV6
+    mld6_leavegroup_netif(netif, ip_2_ip6(&v6group));
 #endif
 
   mem_free(mdns);

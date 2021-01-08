@@ -47,7 +47,7 @@
 #define LWIP_IPV6_AUTOCONFIG            (1)
 #define LWIP_IPV6_SEND_ROUTER_SOLICIT   (1)
 #define LWIP_ICMP6                      (1)
-#define LWIP_IPV6_MLD                   (0)
+#define LWIP_IPV6_MLD                   (1)
 
 #define ETHARP_SUPPORT_STATIC_ENTRIES   (1)
 
