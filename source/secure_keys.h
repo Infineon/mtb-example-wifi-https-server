@@ -5,23 +5,25 @@
 * server and the server security keys such as server certificate, private key,
 * and the root CA (certificate authority) to trust the client.
 *
-******************************************************************************
-* Copyright (2020), Cypress Semiconductor Corporation.
-******************************************************************************
-* This software, including source code, documentation and related materials
-* (“Software”), is owned by Cypress Semiconductor Corporation or one of its
-* subsidiaries (“Cypress”) and is protected by and subject to worldwide patent
-* protection (United States and foreign), United States copyright laws and
-* international treaty provisions. Therefore, you may use this Software only
-* as provided in the license agreement accompanying the software package from
-* which you obtained this Software (“EULA”).
+* Related Document: See README.md
+*******************************************************************************
+* Copyright 2020-2021, Cypress Semiconductor Corporation (an Infineon company) or
+* an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
-* If no EULA applies, Cypress hereby grants you a personal, nonexclusive,
-* non-transferable license to copy, modify, and compile the Software source
-* code solely for use in connection with Cypress’s integrated circuit products.
-* Any reproduction, modification, translation, compilation, or representation
-* of this Software except as specified above is prohibited without the express
-* written permission of Cypress.
+* This software, including source code, documentation and related
+* materials ("Software") is owned by Cypress Semiconductor Corporation
+* or one of its affiliates ("Cypress") and is protected by and subject to
+* worldwide patent protection (United States and foreign),
+* United States copyright laws and international treaty provisions.
+* Therefore, you may use this Software only as provided in the license
+* agreement accompanying the software package from which you
+* obtained this Software ("EULA").
+* If no EULA applies, Cypress hereby grants you a personal, non-exclusive,
+* non-transferable license to copy, modify, and compile the Software
+* source code solely for use in connection with Cypress's
+* integrated circuit products.  Any reproduction, modification, translation,
+* compilation, or representation of this Software except as specified
+* above is prohibited without the express written permission of Cypress.
 *
 * Disclaimer: THIS SOFTWARE IS PROVIDED AS-IS, WITH NO WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, NONINFRINGEMENT, IMPLIED
@@ -31,10 +33,10 @@
 * Software or any product or circuit described in the Software. Cypress does
 * not authorize its products for use in any products where a malfunction or
 * failure of the Cypress product may reasonably be expected to result in
-* significant property damage, injury or death (“High Risk Product”). By
-* including Cypress’s product in a High Risk Product, the manufacturer of such
-* system or application assumes all risk of such use and in doing so agrees to
-* indemnify Cypress against all liability.
+* significant property damage, injury or death ("High Risk Product"). By
+* including Cypress's product in a High Risk Product, the manufacturer
+* of such system or application assumes all risk of such use and in doing
+* so agrees to indemnify Cypress against all liability.
 *******************************************************************************/
 
 /*******************************************************************************
@@ -48,27 +50,27 @@
  */
 #define keySERVER_CERTIFICATE_PEM \
 "-----BEGIN CERTIFICATE-----\n"\
-"MIID5DCCAsygAwIBAgIUT5t4Xsk4h+WeRjpIB7OA5VB/BaUwDQYJKoZIhvcNAQEL\n"\
+"MIID5DCCAsygAwIBAgIUTpEusc2tDKwE4U+9er4knSrRQxAwDQYJKoZIhvcNAQEL\n"\
 "BQAwezELMAkGA1UEBhMCSU4xEjAQBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJ\n"\
 "QmVuZ2FsdXJ1MQswCQYDVQQKDAJDWTEUMBIGA1UECwwLRW5naW5lZXJpbmcxITAf\n"\
-"BgNVBAMMGG15c2VjdXJlaHR0cHNlcnZlci5sb2NhbDAeFw0yMDExMTcwNTU3MDNa\n"\
-"Fw0zMDExMTUwNTU3MDNaMHsxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRh\n"\
+"BgNVBAMMGG15c2VjdXJlaHR0cHNlcnZlci5sb2NhbDAeFw0yMTA0MTYxMDA5Mjla\n"\
+"Fw0zMTA0MTQxMDA5MjlaMHsxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRh\n"\
 "a2ExEjAQBgNVBAcMCUJlbmdhbHVydTELMAkGA1UECgwCQ1kxFDASBgNVBAsMC0Vu\n"\
 "Z2luZWVyaW5nMSEwHwYDVQQDDBhteXNlY3VyZWh0dHBzZXJ2ZXIubG9jYWwwggEi\n"\
-"MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCw6uAANPLCxU+PGf1dI+oR0mOu\n"\
-"FjIaJNrjShUoYrs/GO42QZ/jRKvryKsjfp54CLsApcliGRcCFEcV2HLsDtErYQgv\n"\
-"I6k+tpLkvFLO+E+aVwfhKyC04QZkd3Ht0jwDef68G6sUNCDuzB+7XcZrkEvT8MFT\n"\
-"SW6XKGEO3ZWNns0JfY3jSb4rKaz0r1rYcbdTkg8JkzKZY8CK8XkFfoPppF2D903c\n"\
-"vevgJsV9MfwLIt3BuvjeFfK0b1RusVCADNPZ+2i2uev112+eosr9Z98YtJyS3wwb\n"\
-"70lU0Go9V1jtL7nb3jBrpRTx5dzHQPFwZY8MZtB4haN0O/TSI7/BVZd37vSPAgMB\n"\
-"AAGjYDBeMB8GA1UdIwQYMBaAFGAdK23IOvfPVIQP+QLJyhLma2hQMAkGA1UdEwQC\n"\
+"MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDllq/ckLwwveosi4dO+YLvBCyi\n"\
+"fG4ZkSfx2rwaIW8sHC9xpbVcGRTk8ULKMQsX8kPTd22m4Lt4jOeP2y6+94GFljsT\n"\
+"Ug6Z1mtc08f5h30HMTVZLTRCwQuIX9fm5UnXnwrsbXP4lHvtnxz3BzEzRxDl1kIW\n"\
+"+QEfjGLrvgtLinhb1t7rGgDlMYLQuYJBVXxtaI2pLRCKlod1c+hKgpSSRZ8vGE9/\n"\
+"7BOKWaL2NPfYalj5r+Wr1y6LUclfw6p1RjUj68HQtZczqCHucdlrRMqYGgl+CQBT\n"\
+"P9kuCgzk6VBNPpqtuKZ378JiwbVpOzYaZALnTVxF1KlLnZk89/7RpC5kxrlPAgMB\n"\
+"AAGjYDBeMB8GA1UdIwQYMBaAFLyRCI4LFmUBU0lCcXVWxQbLN+QlMAkGA1UdEwQC\n"\
 "MAAwCwYDVR0PBAQDAgTwMCMGA1UdEQQcMBqCGG15c2VjdXJlaHR0cHNlcnZlci5s\n"\
-"b2NhbDANBgkqhkiG9w0BAQsFAAOCAQEAOpWyVhFme4qHXKxsHuJlpr0RvW1U3qLn\n"\
-"XGoR1BHB1aGAyTxCYrXQgpoanrLSiaAT+Jh83EdY+wBFth0eM5uR56GCiOaxpR0e\n"\
-"jk3MmNlvWd8MaEpNUH0PWH5fqAg2Mlw6ui+BvGi+G6gvtFrb8+iNgRCegJudLy5R\n"\
-"3y25Dw/W6fXHy/3/VjWHohqGrw9ykqfI06vC2rUB10TNpjZGhhd8zCJocPDOLMzO\n"\
-"rX9R7o4Y5N5x1zt8aHiAwZryD42gqTSTj5boW7tzRRwaoW1kzeePQnLJE8IUs3cM\n"\
-"94d/Z280Pshp6irWisTF2jKR8tty5FHH7i4RE+eGgNWy7hdG3WZHZg==\n"\
+"b2NhbDANBgkqhkiG9w0BAQsFAAOCAQEAiVIEkzPXg8B3g8UI0q3rDwsF1TlHIgR7\n"\
+"E/EWxRuSsC0UQMRNL2z4hcDYBWEbxwOR7k3D/0CNS5fBe0cI3RrCWFriXSQJQoa/\n"\
+"wiguy4U2hS8Sniy0naYH5MQpGzeYkD9CIvYPgrRM27gb/KWDO3GNA+lmxss2U8gQ\n"\
+"DC53kNVx7MUQ2E/iN5kuRWXvdLDm7hCHXQRFSV/ZAYhso9pWEqz5tQSMT9IcNFU+\n"\
+"eekbasKFI45R5igsyF1jXM9c3Opjs3pK99Ly7gv7Jf7taE2r5ZrcMOVKX2KGmRZs\n"\
+"c8iFC0PNR12qQAqleX3wfMklVUVFmYfSQ8kqrYzXNaIFBwpJY/cmAQ==\n"\
 "-----END CERTIFICATE-----"
 
 /* Private key of the HTTPS server. Copy from the HTTPS server key
@@ -76,62 +78,60 @@
  */
 #define keySERVER_PRIVATE_KEY_PEM \
 "-----BEGIN RSA PRIVATE KEY-----\n"\
-"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\n"\
+"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\n"\
 "-----END RSA PRIVATE KEY-----"
 
 /* HTTPS client certificate. In this example this is the RootCA
  * certificate so as to verify the HTTPS client's identity. */
 #define keyCLIENT_ROOTCA_PEM \
 "-----BEGIN CERTIFICATE-----\n"\
-"MIID1zCCAr+gAwIBAgIUfqqSjYMMJDoEzbONB1uD+aiIDEswDQYJKoZIhvcNAQEL\n"\
+"MIID1zCCAr+gAwIBAgIUaoSKMNMkYdiTur8umVv9y3MjnHIwDQYJKoZIhvcNAQEL\n"\
 "BQAwezELMAkGA1UEBhMCSU4xEjAQBgNVBAgMCUthcm5hdGFrYTESMBAGA1UEBwwJ\n"\
 "QmVuZ2FsdXJ1MQswCQYDVQQKDAJDWTEUMBIGA1UECwwLRW5naW5lZXJpbmcxITAf\n"\
-"BgNVBAMMGG15c2VjdXJlaHR0cHNlcnZlci5sb2NhbDAeFw0yMDExMTcwNTU3MDFa\n"\
-"Fw0zMDExMTUwNTU3MDFaMHsxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRh\n"\
+"BgNVBAMMGG15c2VjdXJlaHR0cHNlcnZlci5sb2NhbDAeFw0yMTA0MTYxMDA5Mjla\n"\
+"Fw0zMTA0MTQxMDA5MjlaMHsxCzAJBgNVBAYTAklOMRIwEAYDVQQIDAlLYXJuYXRh\n"\
 "a2ExEjAQBgNVBAcMCUJlbmdhbHVydTELMAkGA1UECgwCQ1kxFDASBgNVBAsMC0Vu\n"\
 "Z2luZWVyaW5nMSEwHwYDVQQDDBhteXNlY3VyZWh0dHBzZXJ2ZXIubG9jYWwwggEi\n"\
-"MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDQQeWcoR1h3Yr/JeELUDtputRC\n"\
-"NoUiiXGfS+kDf3KbT+xuecH8QVWuKCTvYrGkFm/A4t5iDjBrzbPx2OxS0UrdXI9o\n"\
-"P1VxJeBiIwCSZdpWjpS3p4c29lb78rRryFDYVUnfF/wXbhb2EoeGdyLt+tGsJF+h\n"\
-"uvoYZ5JUKUIW8lAyYxh8SuQrTThKc1QmEMheZphxY69wEFp3xeb4H0fhKIEWETBg\n"\
-"g0rlymUHE82nM7TYaRi45jXCHBu8AukzqQxWrOR+lEjF/P2+0WrF0V60HAgiNZmi\n"\
-"SSCAjaOF2NOyUlnIO/pOVG9R/v+vO2kkkMlrhZDdVRTXeuIBMx3LZSCVmCwtAgMB\n"\
-"AAGjUzBRMB0GA1UdDgQWBBRgHSttyDr3z1SED/kCycoS5mtoUDAfBgNVHSMEGDAW\n"\
-"gBRgHSttyDr3z1SED/kCycoS5mtoUDAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\n"\
-"DQEBCwUAA4IBAQCkWkPHfuxNGqv8LadVcJmZ1HVMAR1MZja6utzH8PcJ0mm6JYAb\n"\
-"5YrDYSaEp4BOrLxPxujrigBeMSB+mHrRe0Kix0RLCCZFGmueEk4GMoN7Q/kJ0ivt\n"\
-"8ynCz3wbPCzJeABXVTa7DeoOC/WNZWn44vhqSYR1X0Ja/jAuXvmCMo7HVgJRQB2y\n"\
-"QScbc8QEjt/Qcps2jIY3DPLGWLMaltvC388cZNqiGaWRW8em4AYJlFc3b/ng+kMS\n"\
-"/DR8x2fbAeNXWKFtzbYw50Pu27tJb6pX40IlsBsPZ5l1Om+Ga/P8uT72Bzzpg5uD\n"\
-"ubobq34TJ/WFUEdSb46a4gwtr69qVxhZvTJD\n"\
+"MA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPhRi2QhLYUAm8/n+iHzMOD9wU\n"\
+"iU/nvIrGxIaAZRN5RUfQKIRzam6d8cGAegRYMqAii7m4RDc87XINNKhZDWIbXzJ7\n"\
+"SRkeTDQRB5LRNZu5xkYlJVK480TaRlshwFT1oBJ1j1eMhaKADuAWoRyRCsj5u5a0\n"\
+"F87shJm6XoI+ZfmFdOh9OzIqPBC2vODxf2J/cbFemdMCqnb7BguwJ3RLvFu0/W2P\n"\
+"K4l/IgaSYFnBhUhRN2AgVuArTYeH80EChNHJ5hfCKIX1t3ZRHGUMzPW7fyzaCRJK\n"\
+"Tt4X7wHtThTGYyIbHrpIpJU3aIGLnFUcsf2YAlHL9clhOO+/5tp84QAz3GcXAgMB\n"\
+"AAGjUzBRMB0GA1UdDgQWBBS8kQiOCxZlAVNJQnF1VsUGyzfkJTAfBgNVHSMEGDAW\n"\
+"gBS8kQiOCxZlAVNJQnF1VsUGyzfkJTAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3\n"\
+"DQEBCwUAA4IBAQCe9mlauXDWnqbNxvi5X6rMqv4lGrcStHQgcjT79oOt9gXrCQcx\n"\
+"fz7f3opABB/nlvF/Puaf9qnVFyM/z3MH4kAciDCijVqGivchvcHUbICU+I0PJ5QB\n"\
+"3s4xL1Xg6zjaWf8MRzScEOD98T38GfC9t01A4N1YAlo1Dp/w/5tRc5otAgObvH0c\n"\
+"q/DF4JXmhGudnXyFlgBjPol7oZ+A79FBTehPNAoDpkgPUoMKazDLbDwVe+Riiqlq\n"\
+"eSFXDRWtNaE0zdVI9jjiX68RqBR7lrtSR7vdCWKJa0WxMnnF+jTEZFr4+jjw4qlP\n"\
+"cDao9N0IreSwA7MSg34hKue/CAXNbXgF9Tup\n"\
 "-----END CERTIFICATE-----"
 
 #endif /* SECURE_KEYS_H_ */
 
-
 /* [] END OF FILE */
-
