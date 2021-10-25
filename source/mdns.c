@@ -2036,13 +2036,9 @@ mdns_probe(void* arg)
         mdns_send_probe(netif, IP4_ADDR_ANY) == ERR_OK)
 #endif
     {
-#if LWIP_IPV6
-      if (mdns_send_probe(netif, IP6_ADDR_ANY) == ERR_OK)
-#endif
-      {
-        mdns->probes_sent++;
-      }
+      mdns->probes_sent++;
     }
+
     sys_timeout(MDNS_PROBE_DELAY_MS, mdns_probe, netif);
   }
 }

@@ -64,9 +64,6 @@
 /*******************************************************************************
 * Global Variables
 ********************************************************************************/
-/* This enables RTOS aware debugging */
-volatile int uxTopUsedPriority;
-
 /* HTTPS server task handle. */
 TaskHandle_t https_server_task_handle;
 
@@ -89,9 +86,6 @@ int main(void)
 {
     cy_rslt_t result;
 
-    /* This enables RTOS aware debugging in OpenOCD */
-    uxTopUsedPriority = configMAX_PRIORITIES - 1;
-
     /* Initialize the Board Support Package (BSP) */
     result = cybsp_init();
 
@@ -109,7 +103,7 @@ int main(void)
     /* \x1b[2J\x1b[;H - ANSI ESC sequence to clear screen */
     APP_INFO(("\x1b[2J\x1b[;H"));
     APP_INFO(("===================================\n"));
-    APP_INFO(("AnyCloud: HTTPS Server\n"));
+    APP_INFO(("HTTPS Server\n"));
     APP_INFO(("===================================\n\n"));
 
     /* Starts the HTTPS server in secure mode. */

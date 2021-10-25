@@ -127,6 +127,7 @@ static https_url_database_t url_resources_db[MAX_NUMBER_OF_HTTP_SERVER_RESOURCES
 * Function Prototypes
 *******************************************************************************/
 static cy_rslt_t configure_https_server(void);
+void print_heap_usage(char *msg);
 
 /*******************************************************************************
  * Function Name: dynamic_resource_handler
@@ -250,6 +251,8 @@ int32_t dynamic_resource_handler(const char* url_path,
     {
         status = HTTPS_REQUEST_HANDLE_ERROR;
     }
+
+    print_heap_usage("At the end of GET/POST/PUT request handler");
 
     return status;
 }
@@ -546,6 +549,7 @@ void https_server_task(void *arg)
         {
             APP_INFO(("New resource name register request: %s\n", register_new_resource_name));
             register_https_resource(register_new_resource_name);
+            print_heap_usage("After registering a HTTP resource on receiving a PUT request");
         }
     }
 }
