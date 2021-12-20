@@ -2,24 +2,24 @@
 
 This code example demonstrates the implementation of an HTTPS server with PSoC™ 6 MCU with AIROC™ CYW43xxx Wi-Fi & Bluetooth® combo chips.
 
-It employs the [HTTPS server](https://github.com/infineon/http-server) middleware library, which takes care of all the underlying socket connections with the HTTPS client. In this example, the HTTPS server establishes a secure connection with an HTTPS client through SSL handshake. Once the SSL handshake completes successfully, the HTTPS client can make GET, POST, and PUT requests with the server.
+It employs the [HTTPS server](https://github.com/infineon/http-server) middleware library, which takes care of all the underlying socket connections with the HTTPS client. In this example, the HTTPS server establishes a secure connection with an HTTPS client through an SSL handshake. Once the SSL handshake completes successfully, the HTTPS client can make GET, POST, and PUT requests with the server.
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-anycloud-https-server)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzA0MjIiLCJTcGVjIE51bWJlciI6IjAwMi0zMDQyMiIsIkRvYyBUaXRsZSI6IkhUVFBTIHNlcnZlciIsInJpZCI6InNkYWsiLCJEb2MgdmVyc2lvbiI6IjIuMi4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzA0MjIiLCJTcGVjIE51bWJlciI6IjAwMi0zMDQyMiIsIkRvYyBUaXRsZSI6IkhUVFBTIHNlcnZlciIsInJpZCI6InNkYWsiLCJEb2MgdmVyc2lvbiI6IjMuMC4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
 
 ## Requirements
 
-- [ModusToolbox&trade; software](https://www.cypress.com/products/modustoolbox-software-environment) v2.2 or later (tested with v2.3)
+- [ModusToolbox&trade; software](https://www.cypress.com/products/modustoolbox-software-environment) v2.4 or later
 
-    **Note:** This code example version requires ModusToolbox&trade; software version 2.2 or later and is not backward compatible with v2.1 or older versions. If you cannot move to ModusToolbox&trade; v2.2 or later, use the latest compatible version of this example: [latest-v1.X](https://github.com/infineon/mtb-example-anycloud-https-server/tree/latest-v1.X).
-- Board support package (BSP) minimum required version: 2.0.0
+    **Note:** This code example version requires ModusToolbox&trade; software version 2.4 or later and is not backward compatible with v2.3 or older versions. If you cannot move to ModusToolbox&trade; v2.4 or later, use the latest compatible version of this example: [latest-v2.X](https://github.com/infineon/mtb-example-anycloud-https-server/tree/latest-v2.X).
+- Board support package (BSP) minimum required version: 3.0.0
 - Programming language: C
 - Associated parts: All [PSoC&trade; 6 MCU](https://www.cypress.com/PSoC6) parts, [AIROC™ CYW20735 Bluetooth® & Bluetooth® LE system on chip](https://www.cypress.com/products/cyw20735), [AIROC™ CYW20819 Bluetooth® & Bluetooth® LE system on chip](https://www.cypress.com/products/cyw20819), [AIROC™ CYW43012 Wi-Fi & Bluetooth® combo chip](https://www.cypress.com/products/cyw43012), [AIROC™ CYW4332W Wi-Fi & Bluetooth® combo chip](https://www.cypress.com/products/cyw4343w)
 
 ## Supported toolchains (make variable 'TOOLCHAIN')
 
-- GNU Arm® embedded compiler v9.3.1 (`GCC_ARM`) - Default value of `TOOLCHAIN`
+- GNU Arm® embedded compiler v10.3.1 (`GCC_ARM`) - Default value of `TOOLCHAIN`
 - Arm&reg; compiler v6.13 (`ARM`)
 - IAR C/C++ compiler v8.42.2 (`IAR`)
 
@@ -30,13 +30,15 @@ It employs the [HTTPS server](https://github.com/infineon/http-server) middlewar
 - [PSoC&trade; 62S2 Wi-Fi Bluetooth&reg; pioneer kit](https://www.cypress.com/CY8CKIT-062S2-43012) (`CY8CKIT-062S2-43012`)
 - [PSoC&trade; 62S1 Wi-Fi Bluetooth&reg; pioneer kit](https://www.cypress.com/CYW9P62S1-43438EVB-01) (`CYW9P62S1-43438EVB-01`)
 - [PSoC&trade; 62S1 Wi-Fi Bluetooth&reg; pioneer kit](https://www.cypress.com/CYW9P62S1-43012EVB-01) (`CYW9P62S1-43012EVB-01`)
-- [PSoC&trade; 62S2 evaluation kit](https://www.cypress.com/CY8CEVAL-062S2) (`CY8CEVAL-062S2-LAI-4373M2`)
+- [PSoC&trade; 62S3 Wi-Fi Bluetooth&reg; prototyping kit](https://www.cypress.com/CY8CPROTO-062S3-4343W) (`CY8CPROTO-062S3-4343W`)
+- [PSoC&trade; 62S2 evaluation kit](https://www.cypress.com/CY8CEVAL-062S2) (`CY8CEVAL-062S2-LAI-4373M2`, `CY8CEVAL-062S2-MUR-43439M2`)
 
 ## Hardware setup
 
 This example uses the board's default configuration. See the kit user guide to ensure that the board is configured correctly.
 
-**Note:** The PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062-WIFI-BT) ships with KitProg2 installed. The ModusToolbox&trade; software requires KitProg3. Before using this code example, make sure that the board is upgraded to KitProg3. The tool and instructions are available in the [Firmware Loader](https://github.com/infineon/Firmware-loader) GitHub repository. If you do not upgrade, you will see an error like "unable to find CMSIS-DAP device" or "KitProg firmware is out of date".
+**Note:** The PSoC&trade; 6 Bluetooth&reg; LE pioneer kit (CY8CKIT-062-BLE) and the PSoC&trade; 6 Wi-Fi Bluetooth&reg; pioneer kit (CY8CKIT-062-WIFI-BT) ship with KitProg2 installed. The ModusToolbox&trade; software requires KitProg3. Before using this code example, make sure that the board is upgraded to KitProg3. The tool and instructions are available in the [Firmware Loader](https://github.com/Infineon/Firmware-loader) GitHub repository. If you do not upgrade, you will see an error like "unable to find CMSIS-DAP device" or "KitProg firmware is out of date".
+
 
 ## Software setup
 
@@ -127,6 +129,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 </details>
 
+
 ## Operation
 
 1. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
@@ -135,13 +138,13 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
    All possible security types are defined in the `cy_wcm_security_t` structure in the *cy_wcm.h* file.
 
-3. Because this code example uses a self-signed SSL certificate, you need to generate the certificates required by the HTTPS server and client so that they can successfully establish a secure HTTPS connection. Follow the steps provided in a [separate section](#creating-a-self-signed-ssl-certificate) which explains how to generate the certificates.
+3. Because this code example uses a self-signed SSL certificate, you need to generate the certificates required by the HTTPS server and client so that they can successfully establish a secure HTTPS connection. Follow the steps provided in a [separate section](#creating-a-self-signed-ssl-certificate) that explains how to generate the certificates.
 
 4. Open the *source/secure_keys.h* file and do the following:
 
-   1. Modify `keySERVER_CERTIFICATE_PEM` with the contents from the *mysecurehttpserver.local.crt* file generated in Step 3.
-   2. Modify `keySERVER_PRIVATE_KEY_PEM` with the contents from the *mysecurehttpserver.local.key* file generated in Step 3.
-   3. Modify `keyCLIENT_ROOTCA_PEM` with the contents from the *rootCA.crt* file generated in Step 3.
+   1. Modify `keySERVER_CERTIFICATE_PEM` with the contents from the *mysecurehttpserver.local.crt* file generated in **Step 3**.
+   2. Modify `keySERVER_PRIVATE_KEY_PEM` with the contents from the *mysecurehttpserver.local.key* file generated in **Step 3**.
+   3. Modify `keyCLIENT_ROOTCA_PEM` with the contents from the *rootCA.crt* file generated in **Step 3**.
 
 5. Open a terminal program and select the KitProg3 COM port. Set the serial port parameters to 8N1 and 115200 baud.
 
@@ -191,7 +194,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
     - **cURL utility:**
 
-        - Ensure that the *cURL* utility has access to the *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* files generated in Step 3 of the [operation](#operation) section. cURL commands can be invoked from anywhere in the modus-shell. The command takes the argument such as `--cacert`, `--cert`, and `--key`, which indicates the file path to *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* respectively.
+        - Ensure that the *cURL* utility has access to the *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* files generated in **Step 3** of the [operation](#operation) section. cURL commands can be invoked from anywhere in the modus-shell. The command takes the argument such as `--cacert`, `--cert`, and `--key`, which indicates the file path to *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* respectively.
 
     - **Web browser:**
 
@@ -203,13 +206,13 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
                The browser displays the Certificate Manager dialog.
 
-            3. Click **Import** and select the *rootCA.crt* file generated in Step 3 of the [operation](#operation) section and click **Open**.
+            3. Click **Import** and select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section and click **Open**.
 
             4. Trust this certificate authority to identify websites and email users and click **OK**.
 
                The *rootCA.crt* is now installed.
 
-            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in Step 3 of the [operation](#operation) section, under **Your Certificates** on the Certificate Manager window. The certificate was generated with empty password; therefore, leave it empty if it asks for a password during import.
+            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under **Your Certificates** on the Certificate Manager window. The certificate was generated with an empty password; therefore, leave it empty if it asks for a password during import.
 
         - ***Google Chrome and Internet Explorer on Windows:***
 
@@ -221,7 +224,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
             3. Go to **Action** > **All Tasks** > **Import** and click **Next**.
 
-            4. Select the *rootCA.crt* file generated in Step 3 of the [operation](#operation) section. Make sure to change file type as **All Files** to find the *rootCA.crt* file. Click **Open**.
+            4. Select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section. Make sure to change the file type to **All Files** to find the *rootCA.crt* file. Click **Open**.
 
             5. Select the certification store as **Trusted Root Certification Authorities** and click **Finish**.
 
@@ -229,7 +232,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
                The **rootCA.crt** is now installed.
 
-            7. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in Step 3 of the [operation](#operation) section, under the **Personal** category.
+            7. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under the **Personal** category.
 
         - ***Google Chrome (Ubuntu):***
 
@@ -237,13 +240,13 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
             2. In the Certificate Manager window, click **Import** under the **Authorities** tab.
 
-            3. Select the *rootCA.crt* file generated in step 3 of the [operation](#operation) section. Make sure to change file type as **All Files** to find the *rootCA.crt* file. Click **Open**.
+            3. Select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section. Make sure to change the file type to **All Files** to find the *rootCA.crt* file. Click **Open**.
 
             4. Trust this certificate authority to identify websites and email users and click **OK**.
 
                The *rootCA.crt* is now installed.
 
-            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in step 3 of the [operation](#operation), under the **Personal** category.
+            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation), under the **Personal** category.
 
         - ***Google Chrome (macOS):***
 
@@ -251,7 +254,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
             2. Select the **System** keychain.
 
-            3. Open **File** > **Import Items**, and import the certificate file *rootCA.crt*, generated in step 3 of the [operation](#operation) section,  into the **System** keychain.
+            3. Open **File** > **Import Items**, and import the certificate file *rootCA.crt*, generated in **Step 3** of the [operation](#operation) section,  into the **System** keychain.
 
             4. Right-click the certificate and select **Get Info**.
 
@@ -259,15 +262,15 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
             5. Expand the **Trust** category and select **Always Trust** to trust this certificate authority.
 
-            6. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in step 3 of the [operation](#operation) section, under **MyCertificates** category. The certificate was generated with empty password; therefore, leave it empty if it asks for a password.
+            6. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under **MyCertificates** category. The certificate was generated with an empty password; therefore, leave it empty if it asks for a password.
 
         **Notes:**
 
         - Browsers might need a restart after importing the certificate.
 
-        - When importing the *mysecurehttpclient.pfx* file, the Chrome browser asks the user to set the **CryptoAPI Private Key** to protect the client certificate key from accessing it by the browser. The browser is given access to the client private key only after entering the correct key and **allowing** access by the user.
+        - When importing the *mysecurehttpclient.pfx* file, the Chrome browser asks the user to set the **CryptoAPI Private Key** to protect the client certificate key from accessing it by the browser. The browser is given access to the client's private key only after entering the correct key and **allowing** access by the user.
 
-9. Ensure that your PC is connected to the same Wi-Fi access point that you have configured in Step 2.
+9. Ensure that your PC is connected to the same Wi-Fi access point that you have configured in **Step 2**.
 
 10. Enter `https://mysecurehttpserver.local:50007` in the web browser to access the HTTPS server webpage.
 
@@ -276,7 +279,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 ### Using a web browser:
 
-1. Enter the URL `https://mysecurehttpserver.local:50007`. This opens the HTML page; it will look like as follows:
+1. Enter the URL `https://mysecurehttpserver.local:50007`. This opens the HTML page; it will look as follows:
 
    **Figure 1. HTTPS web page**
 
@@ -360,7 +363,7 @@ For a list of supported IDEs and more details, see the "Exporting to IDEs" secti
 
 ## Debugging
 
-You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (KitProg3_MiniProg4)** configuration in the **Quick Panel**. For more details, see the "Program and debug" section in the [Eclipse IDE for ModusToolbox&trade; User Guide](https://www.cypress.com/MTBEclipseIDEUserGuide).
+You can debug the example to step through the code. In the IDE, use the **\<Application Name> Debug (KitProg3_MiniProg4)** configuration in the **Quick Panel**. For more details, see the "Program and debug" section in the [Eclipse IDE for ModusToolbox&trade; software user guide](https://www.cypress.com/MTBEclipseIDEUserGuide).
 
 **Note:** **(Only while debugging)** On the CM4 CPU, some code in `main()` may execute before the debugger halts at the beginning of `main()`. This means that some code executes twice - once before the debugger stops execution, and again after the debugger resets the program counter to the beginning of `main()`. See [KBA231071](https://community.cypress.com/docs/DOC-21143) to learn about this and for the workaround.
 
@@ -371,7 +374,7 @@ An issue has been observed with the multicast domain name system (mDNS) when the
    ```
    Info: Wi-Fi initialization is successful
    Info: Join to AP: WIFI_SSID
-   Function whd_wifi_unregister_multicast_address failed at line 2834    checkres = 101580800
+   Function whd_wifi_unregister_multicast_address failed at line 2834 checkres = 101580800
    Received buffer request ID: 42 (expectation: 42)
    whd_cdc_send_ioctl is already timed out, drop the buffer
    ```
@@ -393,7 +396,7 @@ This issue will be addressed in a future update of this code example.
 
 This example uses the Arm® Cortex®-M4 (CM4) CPU of PSoC&trade; 6 MCU to start the HTTPS server task. At device reset, the default Cortex&reg;-M0+ (CM0+) application enables the CM4 CPU and configures the CM0+ CPU to go to sleep.
 
-In this example, the HTTPS server establishes a secure connection with a web browser or cURL client through SSL handshake. During the SSL handshake, the server presents its SSL certificate for verification, and verifies the incoming client identity. This example uses mDNS provided by the lwIP open-source TCP/IP network stack. mDNS helps in resolving the domain name of the HTTPS server to an IP address in the local network. This code example supports only IPv4 with mDNS.
+In this example, the HTTPS server establishes a secure connection with a web browser or cURL client through an SSL handshake. During the SSL handshake, the server presents its SSL certificate for verification and verifies the incoming client identity. This example uses mDNS provided by the lwIP open-source TCP/IP network stack. mDNS helps in resolving the domain name of the HTTPS server to an IP address in the local network. This code example supports only IPv4 with mDNS.
 
 You can define the maximum number of HTTPS page resources for the HTTPS server in the application Makefile, as shown below. The HTTPS server library maintains the database of pages based on this value.
 
@@ -405,11 +408,11 @@ Note that if the `MAX_NUMBER_OF_HTTP_SERVER_RESOURCES` value is not defined in t
 
 ### Creating a self-signed SSL certificate
 
-The HTTPS server demonstrated in this example uses a self-signed SSL certificate. This requires **OpenSSL** which is already preloaded in the ModusToolbox&trade; software installation. Self-signed SSL certificate means that there is no third-party certificate issuing authority, commonly referred to as CA, involved in the authentication of the server. Clients connecting to the server must have a root CA certificate to verify and trust the websites defined by the certificate. Only when the client trusts the website, it can establish the secure connection with the HTTPS server.
+The HTTPS server demonstrated in this example uses a self-signed SSL certificate. This requires **OpenSSL** which is already preloaded in the ModusToolbox&trade; software installation. A Self-signed SSL certificate means that there is no third-party certificate issuing authority, commonly referred to as CA, involved in the authentication of the server. Clients connecting to the server must have a root CA certificate to verify and trust the websites defined by the certificate. Only when the client trusts the website, it can establish a secure connection with the HTTPS server.
 
 Do the following to generate a self-signed SSL certificate:
 
-#### Generate SSL certificate and private key
+#### Generate an SSL certificate and private key
 
 Run the following script to generate the self-signed SSL certificate and private key.
 
@@ -446,13 +449,13 @@ The *rootCA.crt* and *mysecurehttpclient.pfx* should be installed on the web bro
 
 Resources  | Links
 -----------|----------------------------------
-Application notes  | [AN228571](https://www.cypress.com/AN228571) – Getting started with PSoC&trade; 6 MCU on ModusToolbox&trade; software
-Code examples  | [Using ModusToolbox&trade; software](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub
-Device documentation | [PSoC&trade; 6 MCU datasheets](https://www.cypress.com/search/all?f[0]=meta_type%3Atechnical_documents&f[1]=resource_meta_type%3A575&f[2]=field_related_products%3A114026) <br> [PSoC&trade; 6 technical reference manuals](https://www.cypress.com/search/all/PSoC%206%20Technical%20Reference%20Manual?f[0]=meta_type%3Atechnical_documents&f[1]=resource_meta_type%3A583)
+Application notes  | [AN228571](https://www.cypress.com/AN228571) – Getting started with PSoC&trade; 6 MCU on ModusToolbox&trade; software <br>  [AN215656](https://www.cypress.com/AN215656) – PSoC&trade; 6 MCU: Dual-CPU system design <br> [AN79953](https://www.cypress.com/AN79953) – Getting started with PSoC&trade; 4 <br>  [AN85951](https://www.cypress.com/AN85951) – PSoC&trade; 4 and PSoC&trade; 6 MCU CAPSENSE&trade; design guide
+Code examples  | [Using ModusToolbox&trade; software](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub <br> [Using PSoC&trade; Creator](https://www.cypress.com/documentation/code-examples/psoc-345-code-examples)
+Device documentation | [PSoC&trade; 6 MCU datasheets](https://www.cypress.com/search/all?f[0]=meta_type%3Atechnical_documents&f[1]=resource_meta_type%3A575&f[2]=field_related_products%3A114026) <br> [PSoC&trade; 6 technical reference manuals](https://www.cypress.com/search/all/PSoC%206%20Technical%20Reference%20Manual?f[0]=meta_type%3Atechnical_documents&f[1]=resource_meta_type%3A583)<br> [PSoC&trade; 4 datasheets](https://www.cypress.com/search/all/PSOC%204%20datasheets?sort_by=search_api_relevance&f%5B0%5D=meta_type%3Atechnical_documents) <br>[PSoC&trade; 4 technical reference manuals](https://www.cypress.com/search/all/PSoC%204%20Technical%20Reference%20Manual?sort_by=search_api_relevance&f%5B0%5D=meta_type%3Atechnical_documents)
 Development kits | Visit www.cypress.com/microcontrollers-mcus-kits and use the options in the **Select your kit** section to filter kits by *Product family* or *Features*.
-Libraries on GitHub  | [mtb-pdl-cat1](https://github.com/infineon/mtb-pdl-cat1) – PSoC&trade; 6 peripheral driver library (PDL)  <br> [mtb-hal-cat1](https://github.com/infineon/mtb-hal-cat1) – Hardware abstraction layer (HAL) library <br> [retarget-io](https://github.com/infineon/retarget-io) – Utility library to retarget STDIO messages to a UART port
-Middleware on GitHub  | [capsense](https://github.com/infineon/capsense) – CAPSENSE&trade; library and documents  <br> [http-server](https://github.com/infineon/http-server) – http-server <br>[wifi-connection-manager](https://github.com/infineon/wifi-connection-manager) –  Wi-Fi connection manager (WCM) <br> [wifi-mw-core](https://github.com/infineon/wifi-mw-core) – Wi-Fi middleware core <br> [connectivity-utilities](https://github.com/infineon/connectivity-utilities) – Connectivity-utilities <br> [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSoC&trade; 6 MCU middleware
-Tools  | [Eclipse IDE for ModusToolbox&trade; software](https://www.cypress.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use software and tools enabling rapid development with Infineon MCUs, covering applications from embedded sense and control to wireless and cloud-connected systems using AIROC&trade; Wi-Fi and Bluetooth® connectivity devices. 
+Libraries on GitHub  | [mtb-pdl-cat1](https://github.com/infineon/mtb-pdl-cat1) – PSoC&trade; 6 peripheral driver library (PDL)  <br> [mtb-hal-cat1](https://github.com/infineon/mtb-hal-cat1) – Hardware abstraction layer (HAL) library <br> [retarget-io](https://github.com/infineon/retarget-io) – Utility library to retarget STDIO messages to a UART port <br>  [mtb-pdl-cat2](https://github.com/Infineon/mtb-pdl-cat2) – PSoC&trade; 4 peripheral driver library (PDL) <br>  [mtb-hal-cat2](https://github.com/Infineon/mtb-hal-cat2) – Hardware abstraction layer (HAL) library
+Middleware on GitHub  | [capsense](https://github.com/infineon/capsense) – CAPSENSE&trade; library and documents <br> [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSoC&trade; 6 MCU middleware
+Tools  | [Eclipse IDE for ModusToolbox&trade; software](https://www.cypress.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use software and tools enabling rapid development with Infineon MCUs, covering applications from embedded sense and control to wireless and cloud-connected systems using AIROC&trade; Wi-Fi and Bluetooth® connectivity devices. <br> [PSoC&trade; Creator](https://www.cypress.com/products/psoc-creator-integrated-design-environment-ide) – IDE for PSoC&trade; and FM0+ MCU development
 
 <br>
 
@@ -474,6 +477,7 @@ Document title: *CE230422* - *HTTPS server*
  2.0.0   | Major update to support ModusToolbox&trade; software v2.2 <br /> Updated the application flow to handle HTTPS PUT request differently <br /> This version is not backward compatible with ModusToolbox&trade; software v2.1
  2.1.0   | Updated to support FreeRTOS 10.3.1
  2.2.0   | Added support for the kit CY8CEVAL-062S2-LAI-4373M2 <br />Adding fixes for mDNS errors
+ 3.0.0   | Updated to BSP v3.X and added support for new kits 
 
 ---------------------------------------------------------
 

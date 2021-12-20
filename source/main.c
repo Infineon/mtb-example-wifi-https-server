@@ -54,6 +54,11 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+#if defined(TARGET_CY8CPROTO_062S3_4343W)
+#include "cy_serial_flash_qspi.h"
+#include "cycfg_qspi_memslot.h"
+#endif
+
 /******************************************************************************
 * Macros
 ******************************************************************************/
@@ -99,6 +104,16 @@ int main(void)
 
     /* Initialize the User LED. */
     cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_BIDIRECTIONAL, CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
+
+    /* Init QSPI and enable XIP to get the Wi-Fi firmware from the QSPI NOR flash */
+    #if defined(TARGET_CY8CPROTO_062S3_4343W)
+        const uint32_t bus_frequency = 50000000lu;
+        cy_serial_flash_qspi_init(smifMemConfigs[0], CYBSP_QSPI_D0, CYBSP_QSPI_D1,
+                                      CYBSP_QSPI_D2, CYBSP_QSPI_D3, NC, NC, NC, NC,
+                                      CYBSP_QSPI_SCK, CYBSP_QSPI_SS, bus_frequency);
+
+        cy_serial_flash_qspi_enable_xip(true);
+    #endif
 
     /* \x1b[2J\x1b[;H - ANSI ESC sequence to clear screen */
     APP_INFO(("\x1b[2J\x1b[;H"));
