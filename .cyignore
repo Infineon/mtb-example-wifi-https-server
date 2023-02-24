@@ -6,3 +6,6 @@ images
 .settings
 .vscode
 
+#Adding folders
+templates
+
