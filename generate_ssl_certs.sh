@@ -16,23 +16,22 @@ else
 fi
 
 # Generate a private root key
-openssl genrsa -out rootCA.key 2048
+openssl ecparam -name prime256v1 -genkey -noout -out root_ca.key
 
 # Self-sign a certificate. Make sure to set the "Common Name" field to match
 # your server name (HTTPS_SERVER_NAME) defined in the application.
-openssl req -x509 -new -nodes -key rootCA.key -sha256 \
--days 3650 -out rootCA.crt -subj $OPENSSL_SUBJECT_INFO
+openssl req -new -x509 -sha256 -key root_ca.key -out root_ca.crt -subj $OPENSSL_SUBJECT_INFO
 
 ########################
 # Create CA-signed certs
 ########################
 
 # Generate a private key
-openssl genrsa -out $MY_DOMAIN_NAME.key 2048
+openssl ecparam -name prime256v1 -genkey -noout -out $MY_DOMAIN_NAME.key
 
 # Create the Certificate Signing Request (CSR).
 # Make sure to set the "Common Name" field with MY_DOMAIN_NAME.
-openssl req -new -key $MY_DOMAIN_NAME.key -out $MY_DOMAIN_NAME.csr \
+openssl req -new -sha256 -key $MY_DOMAIN_NAME.key -out $MY_DOMAIN_NAME.csr \
 -subj $OPENSSL_SUBJECT_INFO
 
 # Create a config file for the extensions
@@ -46,9 +45,7 @@ DNS.1 = $MY_DOMAIN_NAME
 EOF
 
 # Create the signed certificate
-openssl x509 -req -in $MY_DOMAIN_NAME.csr -CA rootCA.crt \
--CAkey rootCA.key -CAcreateserial -out $MY_DOMAIN_NAME.crt \
--days 3650 -sha256 -extfile $MY_DOMAIN_NAME.ext
+openssl x509 -req -in $MY_DOMAIN_NAME.csr -CA root_ca.crt -CAkey root_ca.key -CAcreateserial -out $MY_DOMAIN_NAME.crt -days 1000 -sha256
 
 ################################
 # Generate Client Certificate
@@ -56,15 +53,14 @@ openssl x509 -req -in $MY_DOMAIN_NAME.csr -CA rootCA.crt \
 MY_CLIENT=mysecurehttpclient
 
 # Generating RSA Private Key for Client Certificate
-openssl genrsa -out $MY_CLIENT.key 2048
+openssl ecparam -name prime256v1 -genkey -noout -out $MY_CLIENT.key
 
 # Generating Certificate Signing Request for Client Certificate
-openssl req -new -key $MY_CLIENT.key -out $MY_CLIENT.csr \
+openssl req -new -sha256 -key $MY_CLIENT.key -out $MY_CLIENT.csr \
 -subj $OPENSSL_SUBJECT_INFO
 
 # Generating Certificate for Client Certificate
-openssl x509 -req -in $MY_CLIENT.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial \
--out $MY_CLIENT.crt -days 3650 -sha256 -extfile $MY_DOMAIN_NAME.ext
+openssl x509 -req -in $MY_CLIENT.csr -CA root_ca.crt -CAkey root_ca.key -CAcreateserial -out $MY_CLIENT.crt -days 1000 -sha256
 
 # Bundle the client certificate and key.
 # Export password is set to empty.
