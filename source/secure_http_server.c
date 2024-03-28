@@ -6,7 +6,7 @@
 *
 * Related Document: See README.md
 *******************************************************************************
-* Copyright 2020-2023, Cypress Semiconductor Corporation (an Infineon company) or
+* Copyright 2020-2024, Cypress Semiconductor Corporation (an Infineon company) or
 * an affiliate of Cypress Semiconductor Corporation.  All rights reserved.
 *
 * This software, including source code, documentation and related
@@ -343,7 +343,8 @@ void register_https_resource(char *register_resource_name)
     https_put_resource.arg = NULL;
 
     /* Split the URL resource name and data from the HTTPS PUT request. */
-    strtok_r(register_resource_name, "=", &url_resource_data);
+    url_resource_data = strtok(register_resource_name, "=");
+    url_resource_data = strtok(NULL, "=");
     APP_INFO(("New URL: %s, Response text: %s\n", register_resource_name, url_resource_data));
 
     /* Register the resource if it does not exist in the URL database or
