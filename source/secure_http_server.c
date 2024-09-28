@@ -98,9 +98,6 @@ static QueueHandle_t register_resource_queue_handle;
 /* Holds the current LED status. */
 static char *led_status = LED_STATUS_OFF;
 
-/* HTTPS new page resource name */
-static char resource_name[NEW_RESOURCE_NAME_LENGTH] = {0};
-
 /* Global variable to track number of resources registered. */
 static uint32_t number_of_resources_registered = 0;
 
@@ -127,7 +124,6 @@ static https_url_database_t url_resources_db[MAX_NUMBER_OF_HTTP_SERVER_RESOURCES
 * Function Prototypes
 *******************************************************************************/
 static cy_rslt_t configure_https_server(void);
-void print_heap_usage(char *msg);
 
 /*******************************************************************************
  * Function Name: dynamic_resource_handler
@@ -162,6 +158,7 @@ int32_t dynamic_resource_handler(const char* url_path,
     int32_t status = HTTPS_REQUEST_HANDLE_SUCCESS;
     char https_response[MAX_HTTP_RESPONSE_LENGTH] = {0};
     char *register_new_resource = NULL;
+    static char page_resource_name[NEW_RESOURCE_NAME_LENGTH] = {0};
 
     switch (https_message_body->request_type)
     {
@@ -213,11 +210,11 @@ int32_t dynamic_resource_handler(const char* url_path,
             break;
 
         case CY_HTTP_REQUEST_PUT:
-            if (https_message_body->data_length > sizeof(resource_name))
+            if (https_message_body->data_length > sizeof(page_resource_name))
             {
                 /* Report the error response to the client. */
-                ERR_INFO(("Resource name length exceeded the limit. Maximum: %d, Received: %d", sizeof(resource_name), (https_message_body->data_length)));
-                sprintf(https_response, HTTPS_RESOURCE_PUT_ERROR, sizeof(resource_name));
+                ERR_INFO(("Resource name length exceeded the limit. Maximum: %d, Received: %d", sizeof(page_resource_name), (https_message_body->data_length)));
+                sprintf(https_response, HTTPS_RESOURCE_PUT_ERROR, sizeof(page_resource_name));
 
                 /* Send the HTTPS error response. */
                 result = cy_http_server_response_stream_write_payload(stream, https_response, sizeof(https_response));
@@ -229,7 +226,11 @@ int32_t dynamic_resource_handler(const char* url_path,
             }
             else
             {
-                register_new_resource = (char *)&resource_name[0];
+                if(https_message_body->data_length == 0)
+                {
+                    break;
+                }
+                register_new_resource = (char *)&page_resource_name[0];
                 memcpy(register_new_resource, (char *)https_message_body->data, https_message_body->data_length);
 
                 /* Received HTTPS PUT request. Put the message into queue
@@ -251,8 +252,6 @@ int32_t dynamic_resource_handler(const char* url_path,
     {
         status = HTTPS_REQUEST_HANDLE_ERROR;
     }
-
-    print_heap_usage("At the end of GET/POST/PUT request handler");
 
     return status;
 }
@@ -323,7 +322,7 @@ int32_t https_put_resource_handler(const char *url_path,
  *  request is received from the client.
  *
  * Parameters:
- *  register_resource_name: Pointer to the resource name to be registered 
+ *  register_resource_name: Pointer to the resource name to be registered
  *   with the HTTPS server.
  *
  * Return:
@@ -373,8 +372,8 @@ void register_https_resource(char *register_resource_name)
             if ((NULL == url_resources_db[index].resource_name) ||
                 (NULL == url_resources_db[index].value))
             {
-                 ERR_INFO(("Failed to allocate memory for URL resources.\n"));
-                 CY_ASSERT(0);
+                ERR_INFO(("Failed to allocate memory for URL resources.\n"));
+                CY_ASSERT(0);
             }
 
             /* Add the resource name, data, and data length into URL database. */
@@ -409,9 +408,6 @@ void register_https_resource(char *register_resource_name)
         ERR_INFO(("Requested resource not registered/updated. Reached Maximum "
                   "allowed number of resource registration: %d\n", MAX_NUMBER_OF_HTTP_SERVER_RESOURCES));
     }
-
-    /* Clear the request buffer. */
-    memset(resource_name, 0, sizeof(resource_name));
 }
 
 /*******************************************************************************
@@ -459,7 +455,7 @@ static cy_rslt_t configure_https_server(void)
     nw_interface.type = CY_NW_INF_TYPE_WIFI;
 
     /* Initialize secure socket library. */
-    result = cy_http_server_network_init(); 
+    result = cy_http_server_network_init();
 
     /* Allocate memory needed for secure HTTP server. */
     result = cy_http_server_create(&nw_interface, HTTPS_PORT, MAX_SOCKETS, &security_config, &https_server);
@@ -530,7 +526,7 @@ void https_server_task(void *arg)
      * server receives a PUT request sent by the client.
      */
     register_resource_queue_handle = xQueueCreate(REGISTER_RESOURCE_QUEUE_LENGTH,
-                                                          sizeof(resource_name));
+                                                          sizeof(NEW_RESOURCE_NAME_LENGTH));
 
     if (NULL == register_resource_queue_handle)
     {
@@ -550,7 +546,6 @@ void https_server_task(void *arg)
         {
             APP_INFO(("New resource name register request: %s\n", register_new_resource_name));
             register_https_resource(register_new_resource_name);
-            print_heap_usage("After registering a HTTP resource on receiving a PUT request");
         }
     }
 }
@@ -629,25 +624,25 @@ cy_rslt_t wifi_connect(void)
          */
         for (retry_count = 0; retry_count < MAX_WIFI_RETRY_COUNT; retry_count++)
         {
-             result = cy_wcm_connect_ap(&connect_param, &ip_addr);
+            result = cy_wcm_connect_ap(&connect_param, &ip_addr);
 
-             if (CY_RSLT_SUCCESS == result)
-             {
-                 APP_INFO(("Successfully joined Wi-Fi network %s\n", connect_param.ap_credentials.SSID));
+            if (CY_RSLT_SUCCESS == result)
+            {
+                APP_INFO(("Successfully joined Wi-Fi network %s\n", connect_param.ap_credentials.SSID));
 
-                 if (CY_WCM_IP_VER_V4 == ip_addr.version)
-                 {
-                     APP_INFO(("Assigned IP address: %s\n", ip4addr_ntoa((const ip4_addr_t *)&ip_addr.ip.v4)));
-                 }
-                 else if (CY_WCM_IP_VER_V6 == ip_addr.version)
-                 {
-                     APP_INFO(("Assigned IP address: %s\n", ip6addr_ntoa((const ip6_addr_t *)&ip_addr.ip.v6)));
-                 }
+                if (CY_WCM_IP_VER_V4 == ip_addr.version)
+                {
+                    APP_INFO(("Assigned IP address: %s\n", ip4addr_ntoa((const ip4_addr_t *)&ip_addr.ip.v4)));
+                }
+                else if (CY_WCM_IP_VER_V6 == ip_addr.version)
+                {
+                    APP_INFO(("Assigned IP address: %s\n", ip6addr_ntoa((const ip6_addr_t *)&ip_addr.ip.v6)));
+                }
 
-                 break;
-             }
+                break;
+            }
 
-             ERR_INFO(("Failed to join Wi-Fi network. Retrying...\n"));
+            ERR_INFO(("Failed to join Wi-Fi network. Retrying...\n"));
         }
     }
 
@@ -656,4 +651,3 @@ cy_rslt_t wifi_connect(void)
 
 
 /* [] END OF FILE */
-

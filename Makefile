@@ -70,7 +70,6 @@ CONFIG=Debug
 # If set to "true" or "1", display full command-lines when building.
 VERBOSE=
 
-
 ################################################################################
 # Advanced Configuration
 ################################################################################
@@ -115,6 +114,12 @@ DEFINES=$(MBEDTLSFLAGS) CYBSP_WIFI_CAPABLE CY_RETARGET_IO_CONVERT_LF_TO_CRLF CY_
 # If you want this feature on CY8CPROTO-062-4343W, change the GPIO pin for USER BTN
 # in design/hardware & Comment DEFINES+=CY_WIFI_HOST_WAKE_SW_FORCE=0.
 DEFINES+=CY_WIFI_HOST_WAKE_SW_FORCE=0
+
+# Increase the timeout
+DEFINES+=HTTP_SERVER_SOCKET_RECEIVE_TIMEOUT=5000
+
+#Disabled D-cache for XMC7000 based BSPs
+DEFINES+=CY_DISABLE_XMC7000_DATA_CACHE
 
 # Select softfp or hardfp floating point. Default is softfp.
 VFP_SELECT=
@@ -178,10 +183,10 @@ CY_GETLIBS_SHARED_PATH=../
 #
 CY_GETLIBS_SHARED_NAME=mtb_shared
 
-# Absolute path to the compiler's "bin" directory. The variable name depends on the 
+# Absolute path to the compiler's "bin" directory. The variable name depends on the
 # toolchain used for the build. Refer to the ModusToolbox user guide to get the correct
 # variable name for the toolchain used in your build.
-# 
+#
 # The default depends on the selected TOOLCHAIN (GCC_ARM uses the ModusToolbox
 # software provided compiler by default).
 CY_COMPILER_GCC_ARM_DIR=

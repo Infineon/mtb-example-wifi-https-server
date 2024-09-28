@@ -140,4 +140,3 @@ cy_rslt_t mdns_responder_start(void);
 
 
 /* [] END OF FILE */
-
