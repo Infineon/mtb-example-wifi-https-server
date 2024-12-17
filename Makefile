@@ -118,9 +118,6 @@ DEFINES+=CY_WIFI_HOST_WAKE_SW_FORCE=0
 # Increase the timeout
 DEFINES+=HTTP_SERVER_SOCKET_RECEIVE_TIMEOUT=5000
 
-#Disabled D-cache for XMC7000 based BSPs
-DEFINES+=CY_DISABLE_XMC7000_DATA_CACHE
-
 # Select softfp or hardfp floating point. Default is softfp.
 VFP_SELECT=
 
