@@ -6,12 +6,12 @@ It employs the [HTTPS server](https://github.com/Infineon/http-server) middlewar
 
 [View this README on GitHub.](https://github.com/Infineon/mtb-example-wifi-https-server)
 
-[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzA0MjIiLCJTcGVjIE51bWJlciI6IjAwMi0zMDQyMiIsIkRvYyBUaXRsZSI6IkhUVFBTIHNlcnZlciIsInJpZCI6InNkYWsiLCJEb2MgdmVyc2lvbiI6IjQuNy4wIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
+[Provide feedback on this code example.](https://cypress.co1.qualtrics.com/jfe/form/SV_1NTns53sK2yiljn?Q_EED=eyJVbmlxdWUgRG9jIElkIjoiQ0UyMzA0MjIiLCJTcGVjIE51bWJlciI6IjAwMi0zMDQyMiIsIkRvYyBUaXRsZSI6IkhUVFBTIHNlcnZlciIsInJpZCI6InNkYWsiLCJEb2MgdmVyc2lvbiI6IjQuNy4xIiwiRG9jIExhbmd1YWdlIjoiRW5nbGlzaCIsIkRvYyBEaXZpc2lvbiI6Ik1DRCIsIkRvYyBCVSI6IklDVyIsIkRvYyBGYW1pbHkiOiJQU09DIn0=)
 
 
 ## Requirements
 
-- [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) v3.1 or later (tested with v3.3)
+- [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) v3.1 or later (tested with v3.4)
 - Board support package (BSP) minimum required version: 4.2.0
 - Programming language: C
 - Associated parts: All [PSOC&trade; 6 MCU](https://www.infineon.com/cms/en/product/microcontroller/32-bit-psoc-arm-cortex-microcontroller/psoc-6-32-bit-arm-cortex-m4-mcu) parts, [AIROC&trade; CYW20735 Bluetooth&reg; & Bluetooth&reg; LE SoC](https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-bluetooth-le-bluetooth-multiprotocol/cyw20735), [AIROC&trade; CYW20819 Bluetooth&reg; & Bluetooth&reg; LE system on chip](https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-bluetooth-le-bluetooth-multiprotocol/airoc-bluetooth-le-bluetooth/cyw20819), [AIROC&trade; CYW43012 Wi-Fi & Bluetooth&reg; combo chip](https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-wi-fi-plus-bluetooth-combos/wi-fi-4-802.11n/cyw43012/), [AIROC&trade; CYW4343W Wi-Fi & Bluetooth&reg; combo chip](https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-wi-fi-plus-bluetooth-combos/wi-fi-4-802.11n/cyw4343w), [AIROC&trade; CYW43022 Wi-Fi & Bluetooth&reg; combo chip](https://www.infineon.com/cms/en/product/wireless-connectivity/airoc-wi-fi-plus-bluetooth-combos/wi-fi-5-802.11ac/cyw43022)
@@ -49,7 +49,7 @@ This example uses the board's default configuration. See the kit user guide to e
 
 See the [ModusToolbox&trade; tools package installation guide](https://www.infineon.com/ModusToolboxInstallguide) for information about installing and configuring the tools package.
 
-Install a terminal emulator if you don't have one. Instructions in this document use [Tera Term](https://teratermproject.github.io/index-en.html).
+Install a terminal emulator if you do not have one. Instructions in this document use [Tera Term](https://teratermproject.github.io/index-en.html).
 
 > **Note:** This code example also uses the *cURL* utility to test the HTTPS server. This utility helps to send HTTPS GET, POST, and PUT requests to the server. The *cURL* utility (version 7.59.0) is already shipped with the ModusToolbox&trade; v2.2 or later; it is available under *{ModusToolbox&trade; install directory}/tools_\<version>/modus-shell/bin*).
 
@@ -63,27 +63,27 @@ The ModusToolbox&trade; tools package provides the Project Creator as both a GUI
 
 <details><summary><b>Use Project Creator GUI</b></summary>
 
-1. Open the Project Creator GUI tool.
+1. Open the Project Creator GUI tool
 
-   There are several ways to do this, including launching it from the dashboard or from inside the Eclipse IDE. For more details, see the [Project Creator user guide](https://www.infineon.com/ModusToolboxProjectCreator) (locally available at *{ModusToolbox&trade; install directory}/tools_{version}/project-creator/docs/project-creator.pdf*).
+   There are several ways to do this, including launching it from the dashboard or from inside the Eclipse IDE. For more details, see the [Project Creator user guide](https://www.infineon.com/ModusToolboxProjectCreator) (locally available at *{ModusToolbox&trade; install directory}/tools_{version}/project-creator/docs/project-creator.pdf*)
 
-2. On the **Choose Board Support Package (BSP)** page, select a kit supported by this code example. See [Supported kits](#supported-kits-make-variable-target).
+2. On the **Choose Board Support Package (BSP)** page, select a kit supported by this code example. See [Supported kits](#supported-kits-make-variable-target)
 
-   > **Note:** To use this code example for a kit not listed here, you may need to update the source files. If the kit does not have the required resources, the application may not work.
+   > **Note:** To use this code example for a kit not listed here, you may need to update the source files. If the kit does not have the required resources, the application may not work
 
 3. On the **Select Application** page:
 
-   a. Select the **Applications(s) Root Path** and the **Target IDE**.
+   a. Select the **Applications(s) Root Path** and the **Target IDE**
 
-   > **Note:** Depending on how you open the Project Creator tool, these fields may be pre-selected for you.
+      > **Note:** Depending on how you open the Project Creator tool, these fields may be pre-selected for you
 
-   b. Select this code example from the list by enabling its check box.
+   b. Select this code example from the list by enabling its check box
 
-   > **Note:** You can narrow the list of displayed examples by typing in the filter box.
+      > **Note:** You can narrow the list of displayed examples by typing in the filter box
 
-   c. (Optional) Change the suggested **New Application Name** and **New BSP Name**.
+   c. (Optional) Change the suggested **New Application Name** and **New BSP Name**
 
-   d. Click **Create** to complete the application creation process.
+   d. Click **Create** to complete the application creation process
 
 </details>
 
@@ -100,6 +100,7 @@ The following example clones the "[HTTPS server](https://github.com/Infineon/mtb
    project-creator-cli --board-id CY8CPROTO-062S2-43439 --app-id mtb-example-wifi-https-server --user-app-name HttpsServer --target-dir "C:/mtb_projects"
    ```
 
+
 The 'project-creator-cli' tool has the following arguments:
 
 Argument | Description | Required/optional
@@ -108,6 +109,8 @@ Argument | Description | Required/optional
 `--app-id`   | Defined in the <id> field of the [CE](https://github.com/Infineon?q=ce-manifest&type=&language=&sort=) manifest | Required
 `--target-dir`| Specify the directory in which the application is to be created if you prefer not to use the default current working directory | Optional
 `--user-app-name`| Specify the name of the application if you prefer to have a name other than the example's default name | Optional
+
+<br>
 
 > **Note:** The project-creator-cli tool uses the `git clone` and `make getlibs` commands to fetch the repository and import the required libraries. For details, see the "Project creator tools" section of the [ModusToolbox&trade; tools package user guide](https://www.infineon.com/ModusToolboxUserGuide) (locally available at {ModusToolbox&trade; install directory}/docs_{version}/mtb_user_guide.pdf).
 
@@ -138,11 +141,11 @@ For more details, see the [Visual Studio Code for ModusToolbox&trade; user guide
 </details>
 
 
-<details><summary><b>Keil µVision</b></summary>
+<details><summary><b>Arm&reg; Keil&reg; µVision&reg;</b></summary>
 
-Double-click the generated *{project-name}.cprj* file to launch the Keil µVision IDE.
+Double-click the generated *{project-name}.cprj* file to launch the Keil&reg; µVision&reg; IDE.
 
-For more details, see the [Keil µVision for ModusToolbox&trade; user guide](https://www.infineon.com/MTBuVisionUserGuide) (locally available at *{ModusToolbox&trade; install directory}/docs_{version}/mt_uvision_user_guide.pdf*).
+For more details, see the [Arm&reg; Keil&reg; µVision&reg; for ModusToolbox&trade; user guide](https://www.infineon.com/MTBuVisionUserGuide) (locally available at *{ModusToolbox&trade; install directory}/docs_{version}/mt_uvision_user_guide.pdf*).
 
 </details>
 
@@ -169,35 +172,36 @@ For more details, see the [ModusToolbox&trade; tools package user guide](https:/
 
 If using a PSOC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSOC&trade; 64 device must be provisioned with keys and policies before being programmed. Follow the instructions in the ["Secure Boot" SDK user guide](https://www.infineon.com/dgdlac/Infineon-PSoC_64_Secure_MCU_Secure_Boot_SDK_User_Guide-Software-v07_00-EN.pdf?fileId=8ac78c8c7d0d8da4017d0f8c361a7666) to provision the device. If the kit is already provisioned, copy-paste the keys and policy folder to the application folder.
 
-1. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector.
+1. Connect the board to your PC using the provided USB cable through the KitProg3 USB connector
 
-2. Open *secure_http_server.h* and modify the `WIFI_SSID`, `WIFI_PASSWORD`, and `WIFI_SECURITY_TYPE` macros to match the credentials of the Wi-Fi network that you want to connect to.
+2. Open *secure_http_server.h* and modify the `WIFI_SSID`, `WIFI_PASSWORD`, and `WIFI_SECURITY_TYPE` macros to match the credentials of the Wi-Fi network that you want to connect to
 
-   All possible security types are defined in the `cy_wcm_security_t` structure in the *cy_wcm.h* file.
+   All possible security types are defined in the `cy_wcm_security_t` structure in the *cy_wcm.h* file
 
-3. Because this code example uses a self-signed SSL certificate, you need to generate the certificates required by the HTTPS server and client so that they can successfully establish a secure HTTPS connection. Follow the steps provided in a [Creating a self-signed SSL certificate](#creating-a-self-signed-ssl-certificate) section that explains how to generate the certificates.
+3. Because this code example uses a self-signed SSL certificate, you need to generate the certificates required by the HTTPS server and client so that they can successfully establish a secure HTTPS connection. Follow the steps provided in a [Creating a self-signed SSL certificate](#creating-a-self-signed-ssl-certificate) section that explains how to generate the certificates
 
 4. Open the *source/secure_keys.h* file and do the following:
 
-   1. Modify `keySERVER_CERTIFICATE_PEM` with the contents from the *mysecurehttpserver.local.crt* file generated in **Step 3**.
-   2. Modify `keySERVER_PRIVATE_KEY_PEM` with the contents from the *mysecurehttpserver.local.key* file generated in **Step 3**.
-   3. Modify `keyCLIENT_ROOTCA_PEM` with the contents from the *rootCA.crt* file generated in **Step 3**.
+   1. Modify `keySERVER_CERTIFICATE_PEM` with the contents from the *mysecurehttpserver.local.crt* file generated in **Step 3**
+   2. Modify `keySERVER_PRIVATE_KEY_PEM` with the contents from the *mysecurehttpserver.local.key* file generated in **Step 3**
+   3. Modify `keyCLIENT_ROOTCA_PEM` with the contents from the *rootCA.crt* file generated in **Step 3**
 
-5. Open a terminal program and select the KitProg3 COM port. Set the serial port parameters to 8N1 and 115200 baud.
+5. Open a terminal program and select the KitProg3 COM port. Set the serial port parameters to 8N1 and 115200 baud
 
 6. Program the board using one of the following:
 
    <details><summary><b>Using Eclipse IDE</b></summary>
 
-      1. Select the application project in the Project Explorer.
+      1. Select the application project in the Project Explorer
 
-      2. In the **Quick Panel**, scroll down, and click **\<Application Name> Program (KitProg3_MiniProg4)**.
+      2. In the **Quick Panel**, scroll down, and click **\<Application Name> Program (KitProg3_MiniProg4)**
    </details>
 
 
    <details><summary><b>In other IDEs</b></summary>
 
-   Follow the instructions in your preferred IDE.
+   Follow the instructions in your preferred IDE
+
    </details>
 
 
@@ -232,91 +236,91 @@ If using a PSOC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSO
    Info: HTTPS server has successfully started. The server is running at URL https://mysecurehttpserver.local:50007
    ```
 
-8. The client needs to install *rootCA.crt* to trust the HTTPS website and its own certificate *mysecurehttpclient.pfx*. The *.pfx* file bundles the client certificate and key in PKCS format.
+8. The client needs to install *rootCA.crt* to trust the HTTPS website and its own certificate *mysecurehttpclient.pfx*. The *.pfx* file bundles the client certificate and key in PKCS format
 
-   Do the following to install the certificates on the client machine. In this code example, the HTTPS server has two types of clients: one uses the cURL utility while the other uses a web browser.
+   Do the following to install the certificates on the client machine. In this code example, the HTTPS server has two types of clients: one uses the cURL utility while the other uses a web browser
 
     - **cURL utility:**
 
-        - Ensure that the *cURL* utility has access to the *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* files generated in **Step 3** of the [operation](#operation) section. cURL commands can be invoked from anywhere in the modus-shell. The command takes the argument such as `--cacert`, `--cert`, and `--key`, which indicates the file path to *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* respectively.
+        - Ensure that the *cURL* utility has access to the *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* files generated in **Step 3** of the [operation](#operation) section. cURL commands can be invoked from anywhere in the modus-shell. The command takes the argument such as `--cacert`, `--cert`, and `--key`, which indicates the file path to *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* respectively
 
     - **Web browser:**
 
         - ***Mozilla Firefox:***
 
-            1. Select **Options** > **Privacy & Security** (Windows) or **Preferences** > **Privacy & Security** (macOS and Ubuntu).
+            1. Select **Options** > **Privacy & Security** (Windows) or **Preferences** > **Privacy & Security** (macOS and Ubuntu)
 
-            2. Find the **Certificates** section and then click **View Certificates**.
+            2. Find the **Certificates** section and then click **View Certificates**
 
-               The browser displays the Certificate Manager dialog.
+               The browser displays the Certificate Manager dialog
 
-            3. Click **Import** and select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section and click **Open**.
+            3. Click **Import** and select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section and click **Open**
 
-            4. Trust this certificate authority to identify websites and email users and click **OK**.
+            4. Trust this certificate authority to identify websites and email users and click **OK**
 
-               The *rootCA.crt* is now installed.
+               The *rootCA.crt* is now installed
 
-            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under **Your Certificates** on the Certificate Manager window. The certificate was generated with an empty password; therefore, leave it empty if it asks for a password during import.
+            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under **Your Certificates** on the Certificate Manager window. The certificate was generated with an empty password; therefore, leave it empty if it asks for a password during import
 
         - ***Google Chrome and Internet Explorer on Windows:***
 
-            1. In the  Run dialog (click **Win key + R**), type `certmgr.msc` and click **OK**.
+            1. In the  Run dialog (click **Win key + R**), type `certmgr.msc` and click **OK**
 
-               The Windows Certificate Manager application opens.
+               The Windows Certificate Manager application opens
 
-            2. Navigate to the *Trusted Root Certification Authorities/Certificates* folder.
+            2. Navigate to the *Trusted Root Certification Authorities/Certificates* folder
 
-            3. Go to **Action** > **All Tasks** > **Import** and click **Next**.
+            3. Go to **Action** > **All Tasks** > **Import** and click **Next**
 
-            4. Select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section. Make sure to change the file type to **All Files** to find the *rootCA.crt* file. Click **Open**.
+            4. Select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section. Make sure to change the file type to **All Files** to find the *rootCA.crt* file. Click **Open**
 
-            5. Select the certification store as **Trusted Root Certification Authorities** and click **Finish**.
+            5. Select the certification store as **Trusted Root Certification Authorities** and click **Finish**
 
-            6. Click **Yes** to the security warning window to acknowledge that you trust *rootCA.crt* to allow its websites and email users.
+            6. Click **Yes** to the security warning window to acknowledge that you trust *rootCA.crt* to allow its websites and email users
 
-               The **rootCA.crt** is now installed.
+               The **rootCA.crt** is now installed
 
-            7. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under the **Personal** category.
+            7. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under the **Personal** category
 
         - ***Google Chrome (Ubuntu):***
 
-            1. Select **Settings** > **Show Advanced Settings** > **HTTPS/SSL**. Click **Manage Certificates** under the **Security** tab.
+            1. Select **Settings** > **Show Advanced Settings** > **HTTPS/SSL**. Click **Manage Certificates** under the **Security** tab
 
-            2. In the Certificate Manager window, click **Import** under the **Authorities** tab.
+            2. In the Certificate Manager window, click **Import** under the **Authorities** tab
 
-            3. Select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section. Make sure to change the file type to **All Files** to find the *rootCA.crt* file. Click **Open**.
+            3. Select the *rootCA.crt* file generated in **Step 3** of the [operation](#operation) section. Make sure to change the file type to **All Files** to find the *rootCA.crt* file. Click **Open**
 
-            4. Trust this certificate authority to identify websites and email users and click **OK**.
+            4. Trust this certificate authority to identify websites and email users and click **OK**
 
-               The *rootCA.crt* is now installed.
+               The *rootCA.crt* is now installed
 
-            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation), under the **Personal** category.
+            5. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation), under the **Personal** category
 
         - ***Google Chrome (macOS):***
 
-            1. Open **Finder** > **Applications** > **Utilities** > **Keychain Access**.
+            1. Open **Finder** > **Applications** > **Utilities** > **Keychain Access**
 
-            2. Select the **System** keychain.
+            2. Select the **System** keychain
 
-            3. Open **File** > **Import Items**, and import the certificate file *rootCA.crt*, generated in **Step 3** of the [operation](#operation) section,  into the **System** keychain.
+            3. Open **File** > **Import Items**, and import the certificate file *rootCA.crt*, generated in **Step 3** of the [operation](#operation) section,  into the **System** keychain
 
-            4. Right-click the certificate and select **Get Info**.
+            4. Right-click the certificate and select **Get Info**
 
-               A certificate information window appears.
+               A certificate information window appears
 
-            5. Expand the **Trust** category and select **Always Trust** to trust this certificate authority.
+            5. Expand the **Trust** category and select **Always Trust** to trust this certificate authority
 
-            6. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under **MyCertificates** category. The certificate was generated with an empty password; therefore, leave it empty if it asks for a password.
+            6. Similarly, import the client certificate *mysecurehttpclient.pfx* file, generated in **Step 3** of the [operation](#operation) section, under **MyCertificates** category. The certificate was generated with an empty password; therefore, leave it empty if it asks for a password
 
           > **Notes:**
 
-           - Browsers might need a restart after importing the certificate.
+           - Browsers might need a restart after importing the certificate
 
-           - When importing the *mysecurehttpclient.pfx* file, the Chrome browser asks the user to set the **CryptoAPI Private Key** to protect the client certificate key from accessing it by the browser. The browser is given access to the client's private key only after entering the correct key and **allowing** access by the user.
+           - When importing the *mysecurehttpclient.pfx* file, the Chrome browser asks the user to set the **CryptoAPI Private Key** to protect the client certificate key from accessing it by the browser. The browser is given access to the client's private key only after entering the correct key and **allowing** access by the user
 
-9. Ensure that your PC is connected to the same Wi-Fi access point that you have configured in **Step 2**.
+9. Ensure that your PC is connected to the same Wi-Fi access point that you have configured in **Step 2**
 
-10. Enter `https://mysecurehttpserver.local:50007` in the web browser to access the HTTPS server webpage.
+10. Enter `https://mysecurehttpserver.local:50007` in the web browser to access the HTTPS server webpage
 
 
 ## Test the HTTPS server
@@ -330,18 +334,18 @@ If using a PSOC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSO
 
    ![](images/webpage.png)
 
-2. Click **Get LED status** to send an HTTPS `GET` command to the server running on the kit.
+2. Click **Get LED status** to send an HTTPS `GET` command to the server running on the kit
 
-   The server returns the current LED status on the kit as a response. Note that entering the URL itself will send a `GET` command to the server to get the HTML page.
+   The server returns the current LED status on the kit as a response. Note that entering the URL itself will send a `GET` command to the server to get the HTML page
 
-3. Click **Toggle LED** to send an HTTPS `POST` command to the server running on the kit.
+3. Click **Toggle LED** to send an HTTPS `POST` command to the server running on the kit
 
-   The server acts on the command request and toggles the LED on the kit.
+   The server acts on the command request and toggles the LED on the kit
 
 
 ### Using the cURL utility
 
-1. Open modus-shell application (*{ModusToolbox&trade; install directory}/tools_\<version>/modus-shell/Cygwin.bat*).
+1. Open modus-shell application (*{ModusToolbox&trade; install directory}/tools_\<version>/modus-shell/Cygwin.bat*)
 
 2. Set the path to *rootCA.crt*, *mysecurehttpclient.crt*, and *mysecurehttpclient.key* in a variable:
 
@@ -362,11 +366,11 @@ If using a PSOC&trade; 64 "Secure" MCU kit (like CY8CKIT-064B0S2-4343W), the PSO
    ```
    HTTPS_SERVER_URL="https://mysecurehttpserver.local:50007"
    ```
-   where `mysecurehttpserver.local` is the HTTPS server domain name; `50007` is the HTTPS port number defined in the *secure_http_server.h* file in the `HTTPS_PORT` macro.
+   where `mysecurehttpserver.local` is the HTTPS server domain name; `50007` is the HTTPS port number defined in the *secure_http_server.h* file in the `HTTPS_PORT` macro
 
 4. Use the following *cURL* commands to test HTTPS commands with the HTTPS server:
 
-   1. **HTTPS GET:** Get the kit's LED status (ON or OFF).
+   1. **HTTPS GET:** Get the kit's LED status (ON or OFF)
 
       ```
       curl --cacert $PATH_TO_ROOTCA --cert $PATH_TO_CLIENT_CRT --key $PATH_TO_CLIENT_KEY -X GET $HTTPS_SERVER_URL --output -
@@ -453,7 +457,7 @@ This issue will be addressed in a future update of this code example.
  Resource  |  Alias/object     |    Purpose
  :-------- | :-------------    | :------------
  UART (HAL) |cy_retarget_io_uart_obj | UART HAL object used by Retarget-IO for the Debug UART port
- GPIO (HAL) | CYBSP_USER_LED | User LED
+ GPIO (HAL)    | CYBSP_USER_LED     | User LED
 
 <br>
 
@@ -473,7 +477,6 @@ Note that if the `MAX_NUMBER_OF_HTTP_SERVER_RESOURCES` value is not defined in t
 ### Creating a self-signed SSL certificate
 
 The HTTPS server demonstrated in this example uses a self-signed SSL certificate. This requires **OpenSSL** which is already preloaded in the ModusToolbox&trade; installation. A self-signed SSL certificate means that there is no third-party certificate issuing authority, commonly referred to as CA, involved in the authentication of the server. Clients connecting to the server must have a root CA certificate to verify and trust the websites defined by the certificate. Only when the client trusts the website, it establish a secure connection with the HTTPS server.
-
 
 
 #### Generate an SSL certificate and private key
@@ -526,12 +529,12 @@ Currently this code example uses the TLS v1.2. To use the TLS v1.3, uncomment th
 Resources  | Links
 -----------|----------------------------------
 Application notes  | [AN228571](https://www.infineon.com/AN228571) – Getting started with PSOC&trade; 6 MCU on ModusToolbox&trade; <br> [AN215656](https://www.infineon.com/AN215656) – PSOC&trade; 6 MCU: Dual-CPU system design
-Code examples | [Using ModusToolbox&trade;](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub
+Code examples  | [Using ModusToolbox&trade;](https://github.com/Infineon/Code-Examples-for-ModusToolbox-Software) on GitHub
 Device documentation | [PSOC&trade; 6 MCU datasheets](https://documentation.infineon.com/html/psoc6/bnm1651211483724.html) <br> [PSOC&trade; 6 technical reference manuals](https://documentation.infineon.com/html/psoc6/zrs1651212645947.html)
-Development kits | Select your kits from the [Evaluation board finder](https://www.infineon.com/cms/en/design-support/finder-selection-tools/product-finder/evaluation-board).
+Development kits | Select your kits from the [Evaluation board finder](https://www.infineon.com/cms/en/design-support/finder-selection-tools/product-finder/evaluation-board)
 Libraries on GitHub  | [mtb-pdl-cat1](https://github.com/Infineon/mtb-pdl-cat1) – PSOC&trade; 6 Peripheral Driver Library (PDL)  <br> [mtb-hal-cat1](https://github.com/Infineon/mtb-hal-cat1) – Hardware Abstraction Layer (HAL) Library <br> [retarget-io](https://github.com/Infineon/retarget-io) – Utility library to retarget STDIO messages to a UART port
 Middleware on GitHub  | [psoc6-middleware](https://github.com/Infineon/modustoolbox-software#psoc-6-middleware-libraries) – Links to all PSOC&trade; 6 MCU middleware
-Tools  | [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use libraries and tools enabling rapid development with Infineon MCUs for applications ranging from wireless and cloud-connected systems, edge AI/ML, embedded sense and control, to wired USB connectivity using PSOC&trade; Industrial/IoT MCUs, AIROC&trade; Wi-Fi and Bluetooth&reg; connectivity devices, XMC&trade; Industrial MCUs, and EZ-USB&trade;/EZ-PD&trade; wired connectivity controllers. ModusToolbox&trade; incorporates a comprehensive set of BSPs, HAL, libraries, configuration tools, and provides support for industry-standard IDEs to fast-track your embedded application development.
+Tools  | [ModusToolbox&trade;](https://www.infineon.com/modustoolbox) – ModusToolbox&trade; software is a collection of easy-to-use libraries and tools enabling rapid development with Infineon MCUs for applications ranging from wireless and cloud-connected systems, edge AI/ML, embedded sense and control, to wired USB connectivity using PSOC&trade; Industrial/IoT MCUs, AIROC&trade; Wi-Fi and Bluetooth&reg; connectivity devices, XMC&trade; Industrial MCUs, and EZ-USB&trade;/EZ-PD&trade; wired connectivity controllers. ModusToolbox&trade; incorporates a comprehensive set of BSPs, HAL, libraries, configuration tools, and provides support for industry-standard IDEs to fast-track your embedded application development
 
 <br>
 
@@ -543,7 +546,7 @@ Infineon provides a wealth of data at [www.infineon.com](https://www.infineon.co
 
 ## Document history
 
-Document title: *CE230422* - *HTTPS server*
+Document title: *CE230422* – *HTTPS server*
 
  Version | Description of change
  ------- | ---------------------
@@ -560,17 +563,20 @@ Document title: *CE230422* - *HTTPS server*
  4.5.0   | Added support for CY8CEVAL-062S2-CYW955513SDM2WLIPA
  4.6.0   | Updated the http-server to v3.X; Disabled D-cache for XMC7000 based BSPs
  4.7.0   | Enabled D-cache support for XMC7000 devices
+ 4.7.1   | Enabled MBEDTLS hardware acceleration for ARM and IAR toolchains for XMC7000 devices
 <br>
+
 
 
 All referenced product or service names and trademarks are the property of their respective owners.
 
 The Bluetooth&reg; word mark and logos are registered trademarks owned by Bluetooth SIG, Inc., and any use of such marks by Infineon is under license.
 
+PSOC&trade;, formerly known as PSoC&trade;, is a trademark of Infineon Technologies. Any references to PSoC&trade; in this document or others shall be deemed to refer to PSOC&trade;.
 
 ---------------------------------------------------------
 
-© Cypress Semiconductor Corporation, 2020-2024. This document is the property of Cypress Semiconductor Corporation, an Infineon Technologies company, and its affiliates ("Cypress").  This document, including any software or firmware included or referenced in this document ("Software"), is owned by Cypress under the intellectual property laws and treaties of the United States and other countries worldwide.  Cypress reserves all rights under such laws and treaties and does not, except as specifically stated in this paragraph, grant any license under its patents, copyrights, trademarks, or other intellectual property rights.  If the Software is not accompanied by a license agreement and you do not otherwise have a written agreement with Cypress governing the use of the Software, then Cypress hereby grants you a personal, non-exclusive, nontransferable license (without the right to sublicense) (1) under its copyright rights in the Software (a) for Software provided in source code form, to modify and reproduce the Software solely for use with Cypress hardware products, only internally within your organization, and (b) to distribute the Software in binary code form externally to end users (either directly or indirectly through resellers and distributors), solely for use on Cypress hardware product units, and (2) under those claims of Cypress's patents that are infringed by the Software (as provided by Cypress, unmodified) to make, use, distribute, and import the Software solely for use with Cypress hardware products.  Any other use, reproduction, modification, translation, or compilation of the Software is prohibited.
+© Cypress Semiconductor Corporation, 2020-2025. This document is the property of Cypress Semiconductor Corporation, an Infineon Technologies company, and its affiliates ("Cypress").  This document, including any software or firmware included or referenced in this document ("Software"), is owned by Cypress under the intellectual property laws and treaties of the United States and other countries worldwide.  Cypress reserves all rights under such laws and treaties and does not, except as specifically stated in this paragraph, grant any license under its patents, copyrights, trademarks, or other intellectual property rights.  If the Software is not accompanied by a license agreement and you do not otherwise have a written agreement with Cypress governing the use of the Software, then Cypress hereby grants you a personal, non-exclusive, nontransferable license (without the right to sublicense) (1) under its copyright rights in the Software (a) for Software provided in source code form, to modify and reproduce the Software solely for use with Cypress hardware products, only internally within your organization, and (b) to distribute the Software in binary code form externally to end users (either directly or indirectly through resellers and distributors), solely for use on Cypress hardware product units, and (2) under those claims of Cypress's patents that are infringed by the Software (as provided by Cypress, unmodified) to make, use, distribute, and import the Software solely for use with Cypress hardware products.  Any other use, reproduction, modification, translation, or compilation of the Software is prohibited.
 <br>
 TO THE EXTENT PERMITTED BY APPLICABLE LAW, CYPRESS MAKES NO WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, WITH REGARD TO THIS DOCUMENT OR ANY SOFTWARE OR ACCOMPANYING HARDWARE, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.  No computing device can be absolutely secure.  Therefore, despite security measures implemented in Cypress hardware or software products, Cypress shall have no liability arising out of any security breach, such as unauthorized access to or use of a Cypress product. CYPRESS DOES NOT REPRESENT, WARRANT, OR GUARANTEE THAT CYPRESS PRODUCTS, OR SYSTEMS CREATED USING CYPRESS PRODUCTS, WILL BE FREE FROM CORRUPTION, ATTACK, VIRUSES, INTERFERENCE, HACKING, DATA LOSS OR THEFT, OR OTHER SECURITY INTRUSION (collectively, "Security Breach").  Cypress disclaims any liability relating to any Security Breach, and you shall and hereby do release Cypress from any claim, damage, or other liability arising from any Security Breach.  In addition, the products described in these materials may contain design defects or errors known as errata which may cause the product to deviate from published specifications. To the extent permitted by applicable law, Cypress reserves the right to make changes to this document without further notice. Cypress does not assume any liability arising out of the application or use of any product or circuit described in this document. Any information provided in this document, including any sample design information or programming code, is provided only for reference purposes.  It is the responsibility of the user of this document to properly design, program, and test the functionality and safety of any application made of this information and any resulting product.  "High-Risk Device" means any device or system whose failure could cause personal injury, death, or property damage.  Examples of High-Risk Devices are weapons, nuclear installations, surgical implants, and other medical devices.  "Critical Component" means any component of a High-Risk Device whose failure to perform can be reasonably expected to cause, directly or indirectly, the failure of the High-Risk Device, or to affect its safety or effectiveness.  Cypress is not liable, in whole or in part, and you shall and hereby do release Cypress from any claim, damage, or other liability arising from any use of a Cypress product as a Critical Component in a High-Risk Device. You shall indemnify and hold Cypress, including its affiliates, and its directors, officers, employees, agents, distributors, and assigns harmless from and against all claims, costs, damages, and expenses, arising out of any claim, including claims for product liability, personal injury or death, or property damage arising from any use of a Cypress product as a Critical Component in a High-Risk Device. Cypress products are not intended or authorized for use as a Critical Component in any High-Risk Device except to the limited extent that (i) Cypress's published data sheet for the product explicitly states Cypress has qualified the product for use in a specific High-Risk Device, or (ii) Cypress has given you advance written authorization to use the product as a Critical Component in the specific High-Risk Device and you have signed a separate indemnification agreement.
 <br>
